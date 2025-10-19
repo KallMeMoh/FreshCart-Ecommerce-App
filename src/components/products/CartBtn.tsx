@@ -12,15 +12,24 @@ export default function CartBtn({ productId }: { productId: string }) {
 
   const { setNumberOfItems } = context;
   async function handleClick() {
-    toast.promise(async () => await addToCart(productId), {
-      position: "bottom-right",
-      loading: "Updating your cart...",
-      success: (res) => {
-        setNumberOfItems((p) => p! + 1);
-        return res.message;
+    toast.promise(
+      async () => {
+        const { success, payload, error } = await addToCart(productId);
+
+        if (success && payload) return payload;
+
+        throw new Error(error?.message);
       },
-      error: (err) => err.message,
-    });
+      {
+        position: "bottom-right",
+        loading: "Updating your cart...",
+        success: (res) => {
+          setNumberOfItems((p) => p + 1);
+          return res.message;
+        },
+        error: (err) => err.message,
+      }
+    );
   }
 
   return (

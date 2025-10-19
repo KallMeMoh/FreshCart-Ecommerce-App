@@ -22,14 +22,17 @@ export default function CartContextProvider({
 
   async function getUserCart() {
     try {
-      const { data: cart } = await getLoggedUserCart();
+      const { success, payload, error } = await getLoggedUserCart();
 
-      setNumberOfItems(
-        cart.products.reduce(
-          (acc: number, currVal: { count: number }) => acc + currVal.count,
-          0
-        )
-      );
+      if (success) {
+        return setNumberOfItems(
+          payload.data.products.reduce(
+            (acc: number, currVal: { count: number }) => acc + currVal.count,
+            0
+          )
+        );
+      }
+      throw new Error(error?.message);
     } catch (_) {
       setNumberOfItems(-1);
     }

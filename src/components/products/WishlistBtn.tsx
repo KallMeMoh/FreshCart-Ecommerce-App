@@ -22,7 +22,7 @@ export default function WishlistBtn({
     setDisabled(true);
     if (state === undefined) {
       setDisabled(false);
-      return toast.error("You must be logged to add to wishlist!", {
+      return toast.error("You must login first!", {
         position: "bottom-right",
         duration: 2000,
       });
@@ -30,13 +30,17 @@ export default function WishlistBtn({
 
     toast.promise(
       async () => {
-        const payload = wishlisted
+        const { success, payload, error } = wishlisted
           ? await removeFromWishlist(productId)
           : await addToWishlist(productId);
 
-        setWishlisted(!wishlisted);
-        setDisabled(false);
-        return payload;
+        if (success && payload) {
+          setWishlisted(!wishlisted);
+          setDisabled(false);
+          return payload;
+        }
+
+        throw new Error(error?.message);
       },
       {
         position: "bottom-right",

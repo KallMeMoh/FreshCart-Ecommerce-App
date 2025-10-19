@@ -3,7 +3,6 @@ import getLoggedUserAddresses from "@/utilities/Address/getLoggedUserAddresses";
 import getLoggedUserCart from "@/utilities/Cart/getLoggedUserCart";
 import React, { useContext, useEffect, useState } from "react";
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
 import { useRouter } from "next/navigation";
 import { AddressType } from "@/types/addressType";
 import { toast } from "sonner";
@@ -39,19 +37,6 @@ export default function CheckoutPage() {
   const [value, setValue] = useState("");
   const router = useRouter();
 
-  async function load() {
-    const { data: userAddresses, results } = await getLoggedUserAddresses();
-    if (!results) return router.replace("/address");
-    setAddressess(userAddresses);
-    setValue(`${userAddresses[0]?._id}`);
-
-    const { cartId } = await getLoggedUserCart();
-    if (!cartId) return router.replace("/cart");
-    setCartId(cartId);
-
-    setLoading(false);
-  }
-
   async function handleSubmit() {
     if (value == "")
       return toast.error("Please select a shiping address!", {
@@ -68,15 +53,16 @@ export default function CheckoutPage() {
     if (method == "card") {
       toast.promise(
         async () => {
-          const { status, session } = await OnlineCheckout(
+          const { success, payload, error } = await OnlineCheckout(
             cartId,
             addressess.find((address) => address._id === value)!
           );
 
-          if (status !== "success")
-            throw new Error("Couldn't validate purchase!");
-          window.location.href = session.url;
-          return "Order complete!";
+          if (success && payload.status === "success") {
+            window.location.href = payload.session.url;
+            return "Proceeding to payment...";
+          }
+          throw new Error(error?.message);
         },
         {
           position: "bottom-right",
@@ -88,16 +74,17 @@ export default function CheckoutPage() {
     } else if (method === "cash") {
       toast.promise(
         async () => {
-          const { status } = await OfflineCheckout(
+          const { success, payload, error } = await OfflineCheckout(
             cartId,
             addressess.find((address) => address._id === value)!
           );
-          if (status !== "success")
-            throw new Error("Couldn't validate purchase!");
+          if (success && payload.status === "success") {
+            router.replace("/cart");
+            setNumberOfItems(0);
+            return "Order complete!";
+          }
 
-          router.replace("/cart");
-          setNumberOfItems(0);
-          return "Order complete!";
+          throw new Error(error?.message);
         },
         {
           position: "bottom-right",
@@ -115,8 +102,23 @@ export default function CheckoutPage() {
   }
 
   useEffect(() => {
-    load();
-  }, [load]);
+    (async () => {
+      const addressRes = await getLoggedUserAddresses();
+
+      if (!addressRes.success || !addressRes.payload.results)
+        return router.replace("/address");
+
+      setAddressess(addressRes.payload.data);
+      setValue(`${addressRes.payload.data[0]?._id}`);
+
+      const cartRes = await getLoggedUserCart();
+      if (!cartRes.success || !cartRes.payload.cartId)
+        return router.replace("/cart");
+      setCartId(cartRes.payload.cartId);
+
+      setLoading(false);
+    })();
+  }, [router]);
 
   if (loading)
     return (

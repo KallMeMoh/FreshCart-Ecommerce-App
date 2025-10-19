@@ -24,7 +24,7 @@ export default async function Products({
       : await fetch(`${process.env.API_BASEURL}/products`);
 
     if (!productsRes.ok)
-      throw new Error("We were unable to load our products!");
+      throw new Error("Something went wrong while loading products...");
 
     const payload: ResponseDataType<ProductType> = await productsRes.json();
 
@@ -32,7 +32,9 @@ export default async function Products({
     metadata = payload.metadata;
 
     if (products.length <= 0)
-      throw new Error("No products available at the moment!");
+      throw new Error(
+        "No products are available from this brand at the moment!"
+      );
   } catch (err) {
     if (err instanceof Error)
       return (

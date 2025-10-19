@@ -3,6 +3,8 @@ import Product from "@/components/products/Product";
 import { ProductType } from "@/types/product.type";
 import getLoggedUserWishlist from "@/utilities/Wishlist/getLoggedUserWishlist";
 import React, { useEffect, useState } from "react";
+import image from "../../../public/error.svg";
+import Image from "next/image";
 
 export default function WishlistPage() {
   const [update, setUpdate] = useState(false);
@@ -11,8 +13,18 @@ export default function WishlistPage() {
   const wishlistProductsID = wishlist?.data.map((item) => item._id);
 
   async function init() {
-    setWishlist(await getLoggedUserWishlist());
+    const { success, payload, error } = await getLoggedUserWishlist();
     setLoading(false);
+
+    if (success) setWishlist(payload);
+
+    return (
+      <div className='w-[90%] lg:w-[70%] mx-auto p-4 flex flex-col items-center gap-2 mt-8'>
+        <h1 className='text-gray-600 mb-0'>{error?.message}</h1>
+        <span>Please try again later.</span>
+        <Image src={image} alt='404 Products Not Found!' width={800} />
+      </div>
+    );
   }
 
   useEffect(() => {

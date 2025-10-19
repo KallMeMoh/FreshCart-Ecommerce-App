@@ -1,23 +1,56 @@
 "use server";
-import { AuthError } from "@/errors/AuthErrors";
 import getLoggedUserToken from "@/utilities/getLoggedUserToken";
+import { UnauthorizedError } from "@/errors/AuthErrors";
+import { BadRequestError } from "@/errors/RequestErrors";
 
 export default async function getLoggedUserWishlist() {
-  const token = await getLoggedUserToken();
-  
-  if (!token) throw new AuthError();
+  try {
+    const token = await getLoggedUserToken();
 
-  const res = await fetch(`${process.env.API_BASEURL}/wishlist`, {
-    headers: {
-      token,
-    },
-  });
+    if (!token) throw new UnauthorizedError("You must login first!");
 
-  if (!res.ok) throw new Error();
+    const res = await fetch(`${process.env.API_BASEURL}/wishlist`, {
+      headers: {
+        token,
+      },
+    });
 
-  const payload = await res.json();
-  if (payload.statusMsg === "fail") 
-    throw new AuthError(payload.message.replace('Token', 'credentials'), 'InvalidToken');
+    if (!res.ok)
+      throw new BadRequestError(
+        "A server error occurred while loading whishlist"
+      );
 
-  return payload;
+    const payload = await res.json();
+    if (payload.statusMsg === "fail")
+      throw new UnauthorizedError(
+        payload.message.replace("Token", "credentials")
+      );
+
+    return {
+      success: true,
+      payload,
+      error: null,
+    };
+  } catch (e: unknown) {
+    if (e instanceof UnauthorizedError || e instanceof BadRequestError) {
+      return {
+        success: false,
+        payload: null,
+        error: {
+          message: e.message,
+          type: e.name,
+        },
+      };
+    } else {
+      console.error("Unexpected error: ", e);
+      return {
+        success: false,
+        payload: null,
+        error: {
+          message: "An unexpected error occurred. Please try again.",
+          type: "UnknownError",
+        },
+      };
+    }
+  }
 }

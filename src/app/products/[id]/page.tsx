@@ -8,24 +8,31 @@ import { ProductType } from "@/types/product.type";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+import image from "../../../../public/error.svg";
 
 export default async function ProductDetails({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id: productId } = await params;
+  try {
+    const { id: productId } = await params;
 
-  const product: ProductType = await getProductDetails(productId);
-  const relatedProducts: ProductType[] = await getRelatedProducts(
-    productId,
-    product.category._id
-  );
-  if (relatedProducts.length > 4) relatedProducts.pop();
-  const inWishlist: boolean = await checkWishlist(productId);
+    const {
+      payload: { data: product },
+      error: productError,
+    } = await getProductDetails(productId);
 
-  return (
-    <>
+    if (productError) throw new Error(productError.message);
+
+    const { payload: relatedProducts, error: relatedProductsError } =
+      await getRelatedProducts(productId, product.category._id);
+    if (relatedProductsError) throw new Error(relatedProductsError.message);
+
+    if (relatedProducts.length > 4) relatedProducts.pop();
+    const inWishlist: boolean = await checkWishlist(productId);
+
+    return (
       <div className='w-[70%] mx-auto my-12 min-h-[90vh]'>
         <div className='flex flex-col md:flex-row'>
           <div className='w-full md:w-2/5 lg:w-1/4 p-4'>
@@ -48,7 +55,7 @@ export default async function ProductDetails({
               <p className='text-slate-500 mb-4'>{product.description}</p>
               <div className='flex gap-2'>
                 <p className='text-gray-600'>
-                  <Link href={`/categoris/${product.category._id}`}>
+                  <Link href={`/categories/${product.category._id}`}>
                     {product.category.name}
                   </Link>
                 </p>
@@ -83,6 +90,16 @@ export default async function ProductDetails({
           ))}
         </div>
       </div>
-    </>
-  );
+    );
+  } catch (err) {
+    console.error(err);
+    if (err instanceof Error)
+      return (
+        <div className='w-[90%] lg:w-[70%] mx-auto p-4 flex flex-col items-center gap-2 mt-8'>
+          <h1 className='text-gray-600 mb-0'>{err.message}</h1>
+          <span>Please try again later.</span>
+          <Image src={image} alt='404 Products Not Found!' width={800} />
+        </div>
+      );
+  }
 }

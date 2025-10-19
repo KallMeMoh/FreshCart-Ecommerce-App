@@ -30,9 +30,9 @@ export default function UpdatePasswordForm() {
   async function handleSubmit(values: PasswordSchemaType) {
     toast.promise(
       async () => {
-        const { message, errors } = await updateLoggedUserPassword(values);
-        if (message === "fail") throw new Error(errors.msg);
-        signOut({ callbackUrl: "/login" });
+        const { success, error } = await updateLoggedUserPassword(values);
+        if (success) signOut({ callbackUrl: "/login" });
+        throw new Error(error?.message);
       },
       {
         loading: "Updating your password...",

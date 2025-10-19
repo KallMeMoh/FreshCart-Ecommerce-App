@@ -21,7 +21,6 @@ import {
 } from "@/schema/userDetails.shema";
 import { Input } from "@/components/ui/input";
 import updateLoggedUserData from "@/utilities/updateLoggedUserData";
-import { AuthError } from "@/errors/AuthErrors";
 import { toast } from "sonner";
 
 export default function UpdateDetailsForm() {
@@ -49,19 +48,16 @@ export default function UpdateDetailsForm() {
   ) {
     toast.promise(
       async () => {
-        try {
-          await updateLoggedUserData(values);
-        } catch (error) {
-          if (error instanceof AuthError) {
-            return error.message;
-          }
-          return "Faild to send request, you might be offline!";
-        }
+        const { success, payload, error } = await updateLoggedUserData(values);
+
+        if (success && payload) return true;
+
+        throw new Error(error?.message);
       },
       {
         loading: "Updating your profile...",
         success: "Profile updated successfully!",
-        error: (message) => message,
+        error: (e) => e.message,
       }
     );
   }

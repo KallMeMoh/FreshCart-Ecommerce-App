@@ -16,7 +16,6 @@ import { toast } from "sonner";
 import { addressSchema, AddressSchemaType } from "@/schema/address.schema";
 import { AddressType } from "@/types/addressType";
 import addNewAddress from "@/utilities/Address/addNewAddress";
-import { AuthError } from "@/errors/AuthErrors";
 
 export default function AddressForm({
   setAddressess,
@@ -36,15 +35,18 @@ export default function AddressForm({
   async function handleAddress(values: AddressSchemaType) {
     toast.promise(
       async () => {
-        try {
-          const { data: newAddresses } = await addNewAddress(values);
+        const {
+          success,
+          payload: newAddresses,
+          error,
+        } = await addNewAddress(values);
+
+        if (success && newAddresses) {
           setAddressess(newAddresses);
-        } catch (error) {
-          if (error instanceof AuthError) {
-            return error.message;
-          }
-          return "Faild to send request, you might be offline!";
+          return true;
         }
+
+        throw new Error(error?.message);
       },
       {
         loading: "Updating your addresses...",

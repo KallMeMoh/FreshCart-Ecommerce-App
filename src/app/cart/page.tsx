@@ -6,6 +6,7 @@ import CartCheckoutBtn from "@/components/cart/CartCheckoutBtn";
 import { CartItemType } from "@/types/cartItem.type";
 import Link from "next/link";
 import { CartContext } from "@/context/CartContext";
+import { toast } from "sonner";
 
 export default function Cart() {
   const context = useContext(CartContext);
@@ -17,12 +18,21 @@ export default function Cart() {
   const [cart, setCart] = useState<{
     _id: string;
     products: CartItemType[];
-  }>();
+  }>({ _id: "", products: [] });
 
   async function init() {
-    const { data } = await getLoggedUserCart();
-    setCart(data);
-    setLoading(false);
+    const { success, payload, error } = await getLoggedUserCart();
+
+    if (success) {
+      setCart({ _id: payload.cartId, products: payload.data.products });
+      setLoading(false);
+      return;
+    }
+
+    toast.error(error?.message, {
+      position: "bottom-right",
+      duration: 2000,
+    });
   }
 
   useEffect(() => {
@@ -40,8 +50,8 @@ export default function Cart() {
   return (
     <div className='w-[90%] lg:w-[70%] mx-auto p-4 min-h-[90vh]'>
       <div className='flex flex-col gap-4'>
-        {cart!.products.length > 0 ? (
-          cart!.products.map((cartItem: CartItemType) => {
+        {cart.products.length > 0 ? (
+          cart.products.map((cartItem: CartItemType) => {
             total += cartItem.count * cartItem.price;
             return (
               <CartItem
@@ -60,7 +70,7 @@ export default function Cart() {
           </div>
         )}
       </div>
-      {cart!.products.length > 0 && (
+      {cart.products.length > 0 && (
         <div className='flex w-full md:w-1/2 outline-1 outline-gray-300 p-2 rounded-lg mt-4 mx-auto justify-between items-center'>
           <div className='total'>Total Price: {total} EGP</div>
           <CartCheckoutBtn />

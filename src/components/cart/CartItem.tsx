@@ -19,13 +19,18 @@ export default function CartItem({
 
   async function handleUpdate(incremental: boolean) {
     setActionsDisabled(true);
-    const { status } = await updateCartItem(
+    const { success, payload, error } = await updateCartItem(
       product._id,
       incremental ? count + 1 : count - 1
     );
-    if (status === "success") {
+    if (success && payload.status === "success") {
       setNumberOfItems((prev) => (incremental ? prev + 1 : prev - 1));
       toast.success("Product was updated successfully!", {
+        position: "bottom-right",
+        duration: 2000,
+      });
+    } else {
+      toast.error(error?.message, {
         position: "bottom-right",
         duration: 2000,
       });
@@ -35,10 +40,15 @@ export default function CartItem({
 
   async function handleDelete() {
     setActionsDisabled(true);
-    const { status } = await removeCartItem(product._id);
-    if (status === "success") {
+    const { success, payload, error } = await removeCartItem(product._id);
+    if (success && payload.status === "success") {
       setNumberOfItems((prev: number) => prev - count);
       toast.success("Product was removed successfully!", {
+        position: "bottom-right",
+        duration: 2000,
+      });
+    } else {
+      toast.error(error?.message, {
         position: "bottom-right",
         duration: 2000,
       });

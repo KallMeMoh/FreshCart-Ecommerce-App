@@ -11,27 +11,40 @@ export default function AddressManagmentPage() {
   const [addressess, setAddressess] = useState<AddressType[]>([]);
 
   async function init() {
-    const { data: userAddresses }: { data: AddressType[] } =
-      await getLoggedUserAddresses();
-    setAddressess(userAddresses);
-    setLoading(false);
+    const {
+      success,
+      payload: { data: userAddresses },
+      error,
+    } = await getLoggedUserAddresses();
+    console.log(success, userAddresses, error);
+
+    if (success && userAddresses) {
+      setAddressess(userAddresses);
+      setLoading(false);
+      return;
+    }
+
+    toast.error(error?.message, {
+      position: "bottom-right",
+      duration: 2000,
+    });
   }
 
   async function handleDelete(addressId: string) {
     toast.promise(
       async () => {
-        const { status } = await removeAddress(addressId);
-        if (status === "success") {
+        const { success, error } = await removeAddress(addressId);
+        if (success) {
           await init();
-          return "Address was removed successfully!";
-        } else {
-          throw new Error("Couldn't remove address, you might be offline!");
+          return;
         }
+
+        throw new Error(error?.message);
       },
       {
         position: "bottom-right",
         loading: "Removing address...",
-        success: (msg) => msg,
+        success: "Address was removed successfully!",
         error: (err) => err.message,
       }
     );

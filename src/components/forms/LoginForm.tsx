@@ -40,7 +40,7 @@ export default function LoginForm() {
           position: "bottom-right",
           duration: 2000,
         });
-        window.location.href = "/"; // must reload to updat session
+        window.location.href = "/"; // must reload to update session
       } else {
         toast.error(res?.error, {
           position: "bottom-right",

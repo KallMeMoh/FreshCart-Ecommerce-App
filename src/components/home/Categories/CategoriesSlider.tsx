@@ -45,7 +45,7 @@ export default function CategoriesSlider({
       >
         {categories.map((category: CategoryType) => (
           <SwiperSlide key={category._id}>
-            <Link href={`/category/${category._id}`}>
+            <Link href={`/categories/${category._id}`}>
               <div className='relative'>
                 <Image
                   src={category.image}

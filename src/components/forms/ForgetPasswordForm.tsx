@@ -20,7 +20,6 @@ import {
   emailSchema,
   EmailSchemaType,
 } from "@/schema/forgotPassword.schema";
-import { AuthError } from "@/errors/AuthErrors";
 import sendVerificationCode from "@/utilities/ForgetPassword/sendVerificationCode";
 import verifyCode from "@/utilities/ForgetPassword/verifyCode";
 import { useRouter } from "next/navigation";
@@ -53,17 +52,19 @@ export default function ForgetPasswordForm() {
     setCounter(30);
     toast.promise(
       async () => {
-        const { statusMsg } = await sendVerificationCode(values);
+        const { success, payload, error } = await sendVerificationCode(values);
 
-        if (statusMsg !== "success")
-          throw new Error("Faild to send request, you might be offline!");
-        setEmail(values.email);
+        if (success && payload) {
+          setEmail(values.email);
 
-        const timer = window.setInterval(
-          () => setCounter((prev) => prev - 1),
-          1000
-        );
-        setTimerId(timer);
+          const timer = window.setInterval(
+            () => setCounter((prev) => prev - 1),
+            1000
+          );
+          setTimerId(timer);
+          return true;
+        }
+        throw new Error(error?.message);
       },
       {
         loading: "Sending verification code...",
@@ -79,19 +80,16 @@ export default function ForgetPasswordForm() {
   async function handleVerifyCode(values: CodeSchemaType) {
     toast.promise(
       async () => {
-        try {
-          const ok = await verifyCode(values, { email });
+        const { success, payload, error } = await verifyCode(values, {
+          email,
+        });
 
-          if (!ok) throw new Error("Sever Error");
-
+        if (success && payload) {
           router.replace("/login");
           return "Password updated successfully!";
-        } catch (error) {
-          if (error instanceof AuthError) {
-            return error.message;
-          }
-          return "Faild to send request, you might be offline!";
         }
+
+        throw new Error(error?.message);
       },
       {
         loading: "Updating your password...",
