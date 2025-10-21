@@ -16,7 +16,6 @@ export default function AddressManagmentPage() {
       payload: { data: userAddresses },
       error,
     } = await getLoggedUserAddresses();
-    console.log(success, userAddresses, error);
 
     if (success && userAddresses) {
       setAddressess(userAddresses);

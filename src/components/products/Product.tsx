@@ -15,8 +15,6 @@ import { ProductType } from "@/types/product.type";
 
 export default function Product({
   product,
-  wishlist,
-  updateParent,
 }: {
   product: ProductType;
   wishlist?: string[];
@@ -29,16 +27,8 @@ export default function Product({
     <div className='w-1/2 md:w-1/3 lg:w-1/4 xl:1/5'>
       <div className='p-2 lg:p-4'>
         <Card className='gap-1 p-2 relative'>
-          <div
-            className='absolute'
-            {...(updateParent
-              ? { onClick: () => updateParent.setUpdate(!updateParent.update) }
-              : {})}
-          >
-            <WishlistBtn
-              productId={product._id}
-              state={wishlist?.includes(product._id)}
-            />
+          <div className='absolute'>
+            <WishlistBtn productId={product._id} />
           </div>
 
           <Link href={`/products/${product._id}`}>

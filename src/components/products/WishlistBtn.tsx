@@ -1,51 +1,52 @@
 "use client";
 import addToWishlist from "@/actions/addToWishlist.action";
 import removeFromWishlist from "@/actions/removeFromWishlist.action";
-import React, { useState } from "react";
+import { WishlistContext } from "@/context/WishlistContext";
+import getLoggedUserWishlist from "@/utilities/Wishlist/getLoggedUserWishlist";
+import React, { useContext, useMemo, useState } from "react";
 import { toast } from "sonner";
 
-export default function WishlistBtn({
-  productId,
-  state,
-}: {
-  productId: string;
-  state?: boolean;
-}) {
-  /**
-   * false -> not wishlisted
-   * true -> wishlisted
-   */
-  const [wishlisted, setWishlisted] = useState(state);
+export default function WishlistBtn({ productId }: { productId: string }) {
+  const context = useContext(WishlistContext);
+
+  if (!context)
+    throw new Error("A server error occured while loading wishlist!");
+
+  const { wishlist, setWishlist } = context;
+  const wishlisted = useMemo(() => {
+    if (typeof wishlist === "number") return false;
+    return wishlist.find((prod) => productId === prod._id) !== undefined;
+  }, [wishlist]);
+
   const [disabled, setDisabled] = useState(false);
 
   async function handleClick() {
     setDisabled(true);
-    if (state === undefined) {
-      setDisabled(false);
-      return toast.error("You must login first!", {
-        position: "bottom-right",
-        duration: 2000,
-      });
-    }
 
     toast.promise(
       async () => {
-        const { success, payload, error } = wishlisted
+        const updateWhislistRes = wishlisted
           ? await removeFromWishlist(productId)
           : await addToWishlist(productId);
 
-        if (success && payload) {
-          setWishlisted(!wishlisted);
-          setDisabled(false);
-          return payload;
+        if (updateWhislistRes.success) {
+          const { success, payload, error } = await getLoggedUserWishlist();
+
+          if (success) {
+            setWishlist(payload.data);
+            setDisabled(false);
+            return;
+          }
+
+          throw new Error(error?.message);
         }
 
-        throw new Error(error?.message);
+        throw new Error(updateWhislistRes.error?.message);
       },
       {
         position: "bottom-right",
         loading: "Updating your wishlist...",
-        success: (res) => res.message,
+        success: "Successfuly updated your wishlist.",
         error: (err) => err.message,
       }
     );
@@ -57,11 +58,9 @@ export default function WishlistBtn({
       onClick={handleClick}
       disabled={disabled}
     >
-      {wishlisted ? (
-        <i className='fas fa-heart text-sm lg:text-lg'></i>
-      ) : (
-        <i className='far fa-heart text-sm lg:text-lg'></i>
-      )}
+      <i
+        className={`${wishlisted ? "fas" : "far"} fa-heart text-sm lg:text-lg`}
+      ></i>
     </button>
   );
 }

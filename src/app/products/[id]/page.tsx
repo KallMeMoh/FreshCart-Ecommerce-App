@@ -38,7 +38,7 @@ export default async function ProductDetails({
           <div className='w-full md:w-2/5 lg:w-1/4 p-4'>
             <div className='relative'>
               <div className='absolute top-4 left-4'>
-                <WishlistBtn productId={product._id} state={inWishlist} />
+                <WishlistBtn productId={product._id} />
               </div>
               <Image
                 src={product.imageCover}

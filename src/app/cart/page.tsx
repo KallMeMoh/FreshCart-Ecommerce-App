@@ -11,7 +11,7 @@ import { toast } from "sonner";
 export default function Cart() {
   const context = useContext(CartContext);
 
-  if (!context) throw new Error("Cart Context does not exist");
+  if (!context) throw new Error("A server error occured while loading cart!");
 
   const { numberOfItems, setNumberOfItems } = context;
   const [loading, setLoading] = useState(true);

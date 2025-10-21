@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import AuthSessionProvider from "@/components/next_auth/SessionProvider";
 import CartContextProvider from "@/context/CartContext";
 import Footer from "@/components/Footer";
+import WishlistContextProvider from "@/context/WishlistContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,10 +36,12 @@ export default function RootLayout({
       >
         <AuthSessionProvider>
           <CartContextProvider>
-            <Navbar />
-            <div className='pt-[76px]'>{children}</div>
-            <Toaster />
-            <Footer />
+            <WishlistContextProvider>
+              <Navbar />
+              <div className='pt-[76px]'>{children}</div>
+              <Toaster />
+              <Footer />
+            </WishlistContextProvider>
           </CartContextProvider>
         </AuthSessionProvider>
       </body>
