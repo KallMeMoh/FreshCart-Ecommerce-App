@@ -16,7 +16,7 @@ export default function WishlistBtn({ productId }: { productId: string }) {
   const wishlisted = useMemo(() => {
     if (typeof wishlist === "number") return false;
     return wishlist.find((prod) => productId === prod._id) !== undefined;
-  }, [wishlist]);
+  }, [wishlist, productId]);
 
   const [disabled, setDisabled] = useState(false);
 
@@ -47,7 +47,10 @@ export default function WishlistBtn({ productId }: { productId: string }) {
         position: "bottom-right",
         loading: "Updating your wishlist...",
         success: "Successfuly updated your wishlist.",
-        error: (err) => err.message,
+        error: (err) => {
+          setDisabled(false);
+          return err.message;
+        },
       }
     );
   }

@@ -10,23 +10,32 @@ export async function middleware(request: NextRequest) {
       request.nextUrl.pathname === "/register"
     ) {
       return NextResponse.redirect(new URL("/", request.url));
-    } 
-    
+    }
+
     return NextResponse.next();
   } else {
     if (
+      request.nextUrl.pathname === "/wishlist" ||
       request.nextUrl.pathname === "/cart" ||
-      request.nextUrl.pathname === '/user' || 
-      request.nextUrl.pathname === '/address' || 
-      request.nextUrl.pathname === '/checkout'
+      request.nextUrl.pathname === "/user" ||
+      request.nextUrl.pathname === "/address" ||
+      request.nextUrl.pathname === "/checkout"
     ) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
-    
+
     return NextResponse.next();
   }
 }
 
 export const config = {
-  matcher: ["/cart", "/login", "/register", "/user", '/checkout', '/address'],
+  matcher: [
+    "/wishlist",
+    "/cart",
+    "/login",
+    "/register",
+    "/user",
+    "/checkout",
+    "/address",
+  ],
 };
