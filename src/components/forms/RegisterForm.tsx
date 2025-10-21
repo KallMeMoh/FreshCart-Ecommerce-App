@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
 import { registerSchema, RegisterSchemaType } from "@/schema/register.schema";
+import signUp from "@/utilities/Register/signUp";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -32,21 +33,15 @@ export default function RegisterForm() {
 
   async function handleRegister(values: RegisterSchemaType) {
     try {
-      const res = await fetch(`${process.env.API_BASEURL}/auth/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      if (res.ok) {
+      const { success, error } = await signUp(values);
+      if (success) {
         toast.success("You Registerd Successfully 👌", {
           position: "bottom-right",
           duration: 2000,
         });
         router.push("/login");
       } else {
-        throw new Error("Request could not be made!");
+        throw new Error(error?.message);
       }
     } catch (error) {
       if (error instanceof TypeError) {
