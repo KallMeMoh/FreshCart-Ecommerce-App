@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+'use client';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -9,8 +9,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   EmailSchemaType,
   NameSchemaType,
@@ -18,27 +18,27 @@ import {
   updateEmailSchema,
   updateNameSchema,
   updatePhoneSchema,
-} from "@/schema/userDetails.shema";
-import { Input } from "@/components/ui/input";
-import updateLoggedUserData from "@/utilities/updateLoggedUserData";
-import { toast } from "sonner";
+} from '@/schema/userDetails.shema';
+import { Input } from '@/components/ui/input';
+import updateLoggedUserData from '@/utilities/updateLoggedUserData';
+import { toast } from 'sonner';
 
 export default function UpdateDetailsForm() {
   const name = useForm({
     defaultValues: {
-      name: "",
+      name: '',
     },
     resolver: zodResolver(updateNameSchema),
   });
   const email = useForm({
     defaultValues: {
-      email: "",
+      email: '',
     },
     resolver: zodResolver(updateEmailSchema),
   });
   const phone = useForm({
     defaultValues: {
-      phone: "",
+      phone: '',
     },
     resolver: zodResolver(updatePhoneSchema),
   });
@@ -55,28 +55,28 @@ export default function UpdateDetailsForm() {
         throw new Error(error?.message);
       },
       {
-        loading: "Updating your profile...",
-        success: "Profile updated successfully!",
+        loading: 'Updating your profile...',
+        success: 'Profile updated successfully!',
         error: (e) => e.message,
       }
     );
   }
 
   return (
-    <div className='rounded-lg shadow-lg shadow-gray-200 py-4 px-8 w-full lg:w-1/2'>
-      <h1 className='font-bold text-center text-3xl mb-8'>Update Details</h1>
+    <div className="rounded-lg shadow-lg shadow-gray-200 py-4 px-8 w-full lg:w-1/2">
+      <h1 className="font-bold text-center text-3xl mb-8">Update Details</h1>
       <Form {...name}>
         <form onSubmit={name.handleSubmit(handleClick)}>
           <FormField
             control={name.control}
-            name='name'
+            name="name"
             render={({ field }) => (
-              <FormItem className='mb-4'>
+              <FormItem className="mb-4">
                 <FormLabel>Name:</FormLabel>
-                <FormControl className='flex gap-2'>
+                <FormControl className="flex gap-2">
                   <div>
-                    <Input className='w-3/4' type='text' {...field} />
-                    <Button type='submit' className='w-1/4 cursor-pointer'>
+                    <Input className="w-3/4" type="text" {...field} />
+                    <Button type="submit" className="w-1/4 cursor-pointer">
                       Update
                     </Button>
                   </div>
@@ -91,14 +91,14 @@ export default function UpdateDetailsForm() {
         <form onSubmit={email.handleSubmit(handleClick)}>
           <FormField
             control={email.control}
-            name='email'
+            name="email"
             render={({ field }) => (
-              <FormItem className='mb-4'>
+              <FormItem className="mb-4">
                 <FormLabel>Email:</FormLabel>
-                <FormControl className='flex gap-2'>
+                <FormControl className="flex gap-2">
                   <div>
-                    <Input className='w-3/4' type='email' {...field} />
-                    <Button type='submit' className='w-1/4 cursor-pointer'>
+                    <Input className="w-3/4" type="email" {...field} />
+                    <Button type="submit" className="w-1/4 cursor-pointer">
                       Update
                     </Button>
                   </div>
@@ -113,14 +113,14 @@ export default function UpdateDetailsForm() {
         <form onSubmit={phone.handleSubmit(handleClick)}>
           <FormField
             control={phone.control}
-            name='phone'
+            name="phone"
             render={({ field }) => (
-              <FormItem className='mb-4'>
+              <FormItem className="mb-4">
                 <FormLabel>Phone:</FormLabel>
-                <FormControl className='flex gap-2'>
+                <FormControl className="flex gap-2">
                   <div>
-                    <Input className='w-3/4' type='tel' {...field} />
-                    <Button type='submit' className='w-1/4 cursor-pointer'>
+                    <Input className="w-3/4" type="tel" {...field} />
+                    <Button type="submit" className="w-1/4 cursor-pointer">
                       Update
                     </Button>
                   </div>

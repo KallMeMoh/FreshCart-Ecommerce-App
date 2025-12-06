@@ -1,11 +1,11 @@
-"use client";
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Autoplay } from "swiper/modules";
-import Image from "next/image";
-import Link from "next/link";
-import { CategoryType } from "@/types/category.type";
+'use client';
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { Autoplay } from 'swiper/modules';
+import Image from 'next/image';
+import Link from 'next/link';
+import { CategoryType } from '@/types/category.type';
 
 export default function CategoriesSlider({
   categories,
@@ -13,7 +13,7 @@ export default function CategoriesSlider({
   categories: CategoryType[];
 }) {
   return (
-    <div className='w-full lg:w-[80%] mx-auto'>
+    <div className="w-full lg:w-[80%] mx-auto">
       <Swiper
         spaceBetween={0}
         slidesPerView={7}
@@ -46,16 +46,16 @@ export default function CategoriesSlider({
         {categories.map((category: CategoryType) => (
           <SwiperSlide key={category._id}>
             <Link href={`/categories/${category._id}`}>
-              <div className='relative'>
+              <div className="relative">
                 <Image
                   src={category.image}
                   width={500}
                   height={500}
-                  className='w-full h-[120px] lg:h-[200px] object-center'
-                  alt='category cover image'
+                  className="w-full h-[120px] lg:h-[200px] object-center"
+                  alt="category cover image"
                 />
-                <div className='absolute bottom-0 w-full bg-black opacity-55 z-10 py-1'>
-                  <p className='text-center text-white opacity-100 font-bold line-clamp-1'>
+                <div className="absolute bottom-0 w-full bg-black opacity-55 z-10 py-1">
+                  <p className="text-center text-white opacity-100 font-bold line-clamp-1">
                     {category.name}
                   </p>
                 </div>

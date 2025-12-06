@@ -1,6 +1,6 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,27 +8,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import Link from "next/link";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import Link from 'next/link';
 import {
   codeSchema,
   CodeSchemaType,
   emailSchema,
   EmailSchemaType,
-} from "@/schema/forgotPassword.schema";
-import sendVerificationCode from "@/utilities/ForgetPassword/sendVerificationCode";
-import verifyCode from "@/utilities/ForgetPassword/verifyCode";
-import { useRouter } from "next/navigation";
+} from '@/schema/forgotPassword.schema';
+import sendVerificationCode from '@/utilities/ForgetPassword/sendVerificationCode';
+import verifyCode from '@/utilities/ForgetPassword/verifyCode';
+import { useRouter } from 'next/navigation';
 
 export default function ForgetPasswordForm() {
   const router = useRouter();
   const [counter, setCounter] = useState(0);
   const [timerId, setTimerId] = useState(-1);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     return () => clearTimeout(timerId);
@@ -36,14 +36,14 @@ export default function ForgetPasswordForm() {
 
   const form1 = useForm({
     defaultValues: {
-      email: "",
+      email: '',
     },
     resolver: zodResolver(emailSchema),
   });
   const form2 = useForm({
     defaultValues: {
-      newPassword: "",
-      code: "",
+      newPassword: '',
+      code: '',
     },
     resolver: zodResolver(codeSchema),
   });
@@ -67,8 +67,8 @@ export default function ForgetPasswordForm() {
         throw new Error(error?.message);
       },
       {
-        loading: "Sending verification code...",
-        success: "Please check your e-mail!",
+        loading: 'Sending verification code...',
+        success: 'Please check your e-mail!',
         error: (error) => {
           setCounter(0);
           return error.message;
@@ -85,14 +85,14 @@ export default function ForgetPasswordForm() {
         });
 
         if (success && payload) {
-          router.replace("/login");
-          return "Password updated successfully!";
+          router.replace('/login');
+          return 'Password updated successfully!';
         }
 
         throw new Error(error?.message);
       },
       {
-        loading: "Updating your password...",
+        loading: 'Updating your password...',
         success: (msg) => msg,
         error: (error) => error.message,
       }
@@ -100,25 +100,25 @@ export default function ForgetPasswordForm() {
   }
 
   return (
-    <div className='h-full flex flex-col items-stretch px-10 justify-center'>
-      <h1 className='font-bold text-center text-3xl mb-8'>Change Password</h1>
+    <div className="h-full flex flex-col items-stretch px-10 justify-center">
+      <h1 className="font-bold text-center text-3xl mb-8">Change Password</h1>
       <Form {...form1}>
         <form onSubmit={form1.handleSubmit(handleSendCode)}>
           <FormField
             control={form1.control}
-            name='email'
+            name="email"
             render={({ field }) => (
-              <FormItem className='mb-4 w-full'>
+              <FormItem className="mb-4 w-full">
                 <FormLabel>Email:</FormLabel>
                 <FormControl>
-                  <div className='flex gap-4'>
-                    <Input type='email' {...field} />
+                  <div className="flex gap-4">
+                    <Input type="email" {...field} />
                     <Button
-                      type='submit'
-                      className='w-1/5 cursor-pointer'
+                      type="submit"
+                      className="w-1/5 cursor-pointer"
                       disabled={counter > 0}
                     >
-                      {counter <= 0 ? "Send" : counter}
+                      {counter <= 0 ? 'Send' : counter}
                     </Button>
                   </div>
                 </FormControl>
@@ -132,12 +132,12 @@ export default function ForgetPasswordForm() {
         <form onSubmit={form2.handleSubmit(handleVerifyCode)}>
           <FormField
             control={form2.control}
-            name='newPassword'
+            name="newPassword"
             render={({ field }) => (
-              <FormItem className='mb-4'>
+              <FormItem className="mb-4">
                 <FormLabel>New Password:</FormLabel>
                 <FormControl>
-                  <Input type='password' {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -145,24 +145,24 @@ export default function ForgetPasswordForm() {
           />
           <FormField
             control={form2.control}
-            name='code'
+            name="code"
             render={({ field }) => (
-              <FormItem className='mb-4'>
+              <FormItem className="mb-4">
                 <FormLabel>Code:</FormLabel>
                 <FormControl>
-                  <Input type='text' {...field} />
+                  <Input type="text" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className='text-gray-600 text-center w-full'>
-            Don&apos;T have an account?{" "}
-            <Link href='/register' className='underline text-black font-bold'>
+          <div className="text-gray-600 text-center w-full">
+            Don&apos;T have an account?{' '}
+            <Link href="/register" className="underline text-black font-bold">
               Signup instead!
             </Link>
           </div>
-          <Button type='submit' className='my-4 w-full cursor-pointer'>
+          <Button type="submit" className="my-4 w-full cursor-pointer">
             Update Password
           </Button>
         </form>

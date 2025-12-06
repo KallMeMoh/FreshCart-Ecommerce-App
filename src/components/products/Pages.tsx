@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -7,8 +7,8 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
-import { MetadataType } from "@/types/metadata.type";
+} from '@/components/ui/pagination';
+import { MetadataType } from '@/types/metadata.type';
 
 export default function Pages({ data }: { data: MetadataType }) {
   if (data.numberOfPages == 1) return;

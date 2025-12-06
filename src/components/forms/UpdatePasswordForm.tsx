@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+'use client';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -9,20 +9,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { passwordSchema, PasswordSchemaType } from "@/schema/userDetails.shema";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-import updateLoggedUserPassword from "@/utilities/updateLoggedUserPassword";
-import { signOut } from "next-auth/react";
+} from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { passwordSchema, PasswordSchemaType } from '@/schema/userDetails.shema';
+import { Input } from '@/components/ui/input';
+import { toast } from 'sonner';
+import updateLoggedUserPassword from '@/utilities/updateLoggedUserPassword';
+import { signOut } from 'next-auth/react';
 
 export default function UpdatePasswordForm() {
   const form = useForm({
     defaultValues: {
-      currentPassword: "",
-      password: "",
-      rePassword: "",
+      currentPassword: '',
+      password: '',
+      rePassword: '',
     },
     resolver: zodResolver(passwordSchema),
   });
@@ -31,30 +31,30 @@ export default function UpdatePasswordForm() {
     toast.promise(
       async () => {
         const { success, error } = await updateLoggedUserPassword(values);
-        if (success) signOut({ callbackUrl: "/login" });
+        if (success) signOut({ callbackUrl: '/login' });
         throw new Error(error?.message);
       },
       {
-        loading: "Updating your password...",
-        success: "Password updated successfully!",
+        loading: 'Updating your password...',
+        success: 'Password updated successfully!',
         error: (error) => error.message,
       }
     );
   }
 
   return (
-    <div className='rounded-lg shadow-lg shadow-gray-200 py-4 px-8 w-full lg:w-1/2'>
-      <h1 className='font-bold text-center text-3xl mb-8'>Update Password</h1>
+    <div className="rounded-lg shadow-lg shadow-gray-200 py-4 px-8 w-full lg:w-1/2">
+      <h1 className="font-bold text-center text-3xl mb-8">Update Password</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <FormField
             control={form.control}
-            name='currentPassword'
+            name="currentPassword"
             render={({ field }) => (
-              <FormItem className='mb-4'>
+              <FormItem className="mb-4">
                 <FormLabel>Current Password:</FormLabel>
                 <FormControl>
-                  <Input type='password' {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -62,12 +62,12 @@ export default function UpdatePasswordForm() {
           />
           <FormField
             control={form.control}
-            name='password'
+            name="password"
             render={({ field }) => (
-              <FormItem className='mb-4'>
+              <FormItem className="mb-4">
                 <FormLabel>New Password:</FormLabel>
                 <FormControl>
-                  <Input type='password' {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -75,20 +75,20 @@ export default function UpdatePasswordForm() {
           />
           <FormField
             control={form.control}
-            name='rePassword'
+            name="rePassword"
             render={({ field }) => (
-              <FormItem className='mb-4'>
+              <FormItem className="mb-4">
                 <FormLabel>Confirm New Password:</FormLabel>
                 <FormControl>
-                  <Input type='password' {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button
-            type='submit'
-            className='block mx-auto mt-8 mb-4 w-3/4 cursor-pointer'
+            type="submit"
+            className="block mx-auto mt-8 mb-4 w-3/4 cursor-pointer"
           >
             Update Password
           </Button>
