@@ -27,6 +27,10 @@ A full-featured e-commerce frontend where users can browse products, manage thei
 
 Users can browse products without an account. To add items to cart or wishlist, users need to sign up. Each user gets their own cart and wishlist that persists across sessions.
 
-<!-- ## Screenshots -->
+## Screenshots
 
-<!-- ![Screenshot description](link-to-image) -->
+![Home Page](./screenshots/home.png)
+![Product Page](./screenshots/productpage.png)
+![Wishlist Page](./screenshots/wishlist.png)
+![Cart Page](./screenshots/cart.png)
+![Address Page](./screenshots/address.png)
