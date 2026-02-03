@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FreshCart
 
-## Getting Started
+A full-featured e-commerce frontend where users can browse products, manage their shopping cart, and save items to their wishlist.
 
-First, run the development server:
+🔗 **[Live Demo](https://fresh-cart-phi-gray.vercel.app/)**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Browse products with filtering by categories and brands
+- User authentication and account management
+- Shopping cart functionality
+- Wishlist to save favorite products
+- Product recommendations (4 related products on each product page)
+- Addresses, Payment methods, and Checkout process
+- Responsive design for all devices
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Next.js
+- React
+- TailwindCSS
+- Shadcn UI
+- Zod (validation)
+- Next-Auth (authentication)
 
-## Learn More
+## How It Works
 
-To learn more about Next.js, take a look at the following resources:
+Users can browse products without an account. To add items to cart or wishlist, users need to sign up. Each user gets their own cart and wishlist that persists across sessions.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<!-- ## Screenshots -->
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<!-- ![Screenshot description](link-to-image) -->
