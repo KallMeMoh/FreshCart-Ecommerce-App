@@ -1,8 +1,8 @@
 'use client';
-import addToWishlist from '@/actions/addToWishlist.action';
-import removeFromWishlist from '@/actions/removeFromWishlist.action';
+import addToWishlist from '@/lib/wishlist/addToWishlist';
+import removeFromWishlist from '@/lib/wishlist/removeFromWishlist';
 import { WishlistContext } from '@/context/WishlistContext';
-import getLoggedUserWishlist from '@/utilities/Wishlist/getLoggedUserWishlist';
+import getLoggedUserWishlist from '@/lib/wishlist/getLoggedUserWishlist';
 import React, { useContext, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -51,7 +51,7 @@ export default function WishlistBtn({ productId }: { productId: string }) {
           setDisabled(false);
           return err.message;
         },
-      }
+      },
     );
   }
 

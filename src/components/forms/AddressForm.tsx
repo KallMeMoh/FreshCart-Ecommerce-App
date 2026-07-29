@@ -15,18 +15,17 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { addressSchema, AddressSchemaType } from '@/schema/address.schema';
 import { AddressType } from '@/types/addressType';
-import addNewAddress from '@/utilities/Address/addNewAddress';
+import addNewAddress from '@/lib/address/addNewAddress';
 
 export default function AddressForm({
-  setAddressess,
+  setAddresses,
 }: {
-  setAddressess: React.Dispatch<React.SetStateAction<AddressType[]>>;
+  setAddresses: React.Dispatch<React.SetStateAction<AddressType[]>>;
 }) {
   const form = useForm({
     defaultValues: {
       name: '',
       details: '',
-      phone: '',
       city: '',
     },
     resolver: zodResolver(addressSchema),
@@ -42,7 +41,7 @@ export default function AddressForm({
         } = await addNewAddress(values);
 
         if (success && newAddresses) {
-          setAddressess(newAddresses);
+          setAddresses(newAddresses);
           return true;
         }
 
@@ -52,7 +51,7 @@ export default function AddressForm({
         loading: 'Updating your addresses...',
         success: 'Address added successfully!',
         error: (msg) => msg,
-      }
+      },
     );
   }
 

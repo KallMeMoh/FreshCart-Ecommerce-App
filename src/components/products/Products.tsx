@@ -6,7 +6,7 @@ import image from '../../../public/error.svg';
 import { ProductType } from '@/types/product.type';
 import { MetadataType } from '@/types/metadata.type';
 import { ResponseDataType } from '@/types/responseData.type';
-import getLoggedUserToken from '@/utilities/getLoggedUserToken';
+import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
 
 export default async function Products({
   pagination = false,
@@ -19,7 +19,7 @@ export default async function Products({
   try {
     const productsRes = params
       ? await fetch(
-          `${process.env.API_BASEURL}/products?${params.type}=${params.value}`
+          `${process.env.API_BASEURL}/products?${params.type}=${params.value}`,
         )
       : await fetch(`${process.env.API_BASEURL}/products`);
 
@@ -33,7 +33,7 @@ export default async function Products({
 
     if (products.length <= 0)
       throw new Error(
-        'No products are available from this brand at the moment!'
+        'No products are available from this brand at the moment!',
       );
   } catch (err) {
     if (err instanceof Error)

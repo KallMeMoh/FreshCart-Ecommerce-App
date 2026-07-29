@@ -20,8 +20,8 @@ import {
   emailSchema,
   EmailSchemaType,
 } from '@/schema/forgotPassword.schema';
-import sendVerificationCode from '@/utilities/ForgetPassword/sendVerificationCode';
-import verifyCode from '@/utilities/ForgetPassword/verifyCode';
+import sendVerificationCode from '@/lib/auth/sendVerificationCode';
+import verifyCode from '@/lib/auth/verifyCode';
 import { useRouter } from 'next/navigation';
 
 export default function ForgetPasswordForm() {
@@ -59,7 +59,7 @@ export default function ForgetPasswordForm() {
 
           const timer = window.setInterval(
             () => setCounter((prev) => prev - 1),
-            1000
+            1000,
           );
           setTimerId(timer);
           return true;
@@ -73,7 +73,7 @@ export default function ForgetPasswordForm() {
           setCounter(0);
           return error.message;
         },
-      }
+      },
     );
   }
 
@@ -95,7 +95,7 @@ export default function ForgetPasswordForm() {
         loading: 'Updating your password...',
         success: (msg) => msg,
         error: (error) => error.message,
-      }
+      },
     );
   }
 

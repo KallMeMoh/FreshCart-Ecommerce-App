@@ -16,17 +16,16 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import { registerSchema, RegisterSchemaType } from '@/schema/register.schema';
-import signUp from '@/utilities/Register/signUp';
+import signUp from '@/lib/auth/signUp';
 
 export default function RegisterForm() {
   const router = useRouter();
   const form = useForm({
     defaultValues: {
-      name: '',
+      username: '',
       email: '',
       password: '',
-      rePassword: '',
-      phone: '',
+      confirm_password: '',
     },
     resolver: zodResolver(registerSchema),
   });
@@ -65,7 +64,7 @@ export default function RegisterForm() {
         <form onSubmit={form.handleSubmit(handleRegister)}>
           <FormField
             control={form.control}
-            name="name"
+            name="username"
             render={({ field }) => (
               <FormItem className="mb-4">
                 <FormLabel>Name:</FormLabel>
@@ -91,19 +90,6 @@ export default function RegisterForm() {
           />
           <FormField
             control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem className="mb-4">
-                <FormLabel>Phone:</FormLabel>
-                <FormControl>
-                  <Input type="tel" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem className="mb-4">
@@ -117,7 +103,7 @@ export default function RegisterForm() {
           />
           <FormField
             control={form.control}
-            name="rePassword"
+            name="confirm_password"
             render={({ field }) => (
               <FormItem className="mb-4">
                 <FormLabel>Confirm Password:</FormLabel>

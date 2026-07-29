@@ -1,6 +1,6 @@
 'use client';
-import removeCartItem from '@/actions/removeCartItem.action';
-import updateCartItem from '@/actions/updateCartItem.action';
+import removeCartItem from '@/lib/cart/removeCartItem';
+import updateCartItem from '@/lib/cart/updateCartItem';
 import { CartItemType } from '@/types/cartItem.type';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ export default function CartItem({
     setActionsDisabled(true);
     const { success, payload, error } = await updateCartItem(
       product._id,
-      incremental ? count + 1 : count - 1
+      incremental ? count + 1 : count - 1,
     );
     if (success && payload.status === 'success') {
       setNumberOfItems((prev) => (incremental ? prev + 1 : prev - 1));

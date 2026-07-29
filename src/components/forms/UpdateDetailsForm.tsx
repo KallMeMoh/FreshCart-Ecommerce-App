@@ -1,6 +1,4 @@
 'use client';
-import React from 'react';
-import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -10,17 +8,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from '@/components/ui/input';
 import {
   EmailSchemaType,
   NameSchemaType,
-  PhoneSchemaType,
   updateEmailSchema,
   updateNameSchema,
-  updatePhoneSchema,
 } from '@/schema/userDetails.shema';
-import { Input } from '@/components/ui/input';
 import updateLoggedUserData from '@/utilities/updateLoggedUserData';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export default function UpdateDetailsForm() {
@@ -36,16 +33,8 @@ export default function UpdateDetailsForm() {
     },
     resolver: zodResolver(updateEmailSchema),
   });
-  const phone = useForm({
-    defaultValues: {
-      phone: '',
-    },
-    resolver: zodResolver(updatePhoneSchema),
-  });
 
-  async function handleClick(
-    values: NameSchemaType | EmailSchemaType | PhoneSchemaType
-  ) {
+  async function handleClick(values: NameSchemaType | EmailSchemaType) {
     toast.promise(
       async () => {
         const { success, payload, error } = await updateLoggedUserData(values);
@@ -58,7 +47,7 @@ export default function UpdateDetailsForm() {
         loading: 'Updating your profile...',
         success: 'Profile updated successfully!',
         error: (e) => e.message,
-      }
+      },
     );
   }
 
@@ -98,28 +87,6 @@ export default function UpdateDetailsForm() {
                 <FormControl className="flex gap-2">
                   <div>
                     <Input className="w-3/4" type="email" {...field} />
-                    <Button type="submit" className="w-1/4 cursor-pointer">
-                      Update
-                    </Button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </form>
-      </Form>
-      <Form {...phone}>
-        <form onSubmit={phone.handleSubmit(handleClick)}>
-          <FormField
-            control={phone.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem className="mb-4">
-                <FormLabel>Phone:</FormLabel>
-                <FormControl className="flex gap-2">
-                  <div>
-                    <Input className="w-3/4" type="tel" {...field} />
                     <Button type="submit" className="w-1/4 cursor-pointer">
                       Update
                     </Button>

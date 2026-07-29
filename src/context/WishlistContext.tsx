@@ -1,7 +1,7 @@
-"use client";
-import { ProductType } from "@/types/product.type";
-import getLoggedUserWishlist from "@/utilities/Wishlist/getLoggedUserWishlist";
-import { createContext, useEffect, useState, ReactNode } from "react";
+'use client';
+import { ProductType } from '@/types/product.type';
+import getLoggedUserWishlist from '@/lib/wishlist/getLoggedUserWishlist';
+import { createContext, useEffect, useState, ReactNode } from 'react';
 
 export type WishlistContextType = {
   wishlist: ProductType[] | number;
@@ -9,7 +9,7 @@ export type WishlistContextType = {
 };
 
 export const WishlistContext = createContext<WishlistContextType | undefined>(
-  undefined
+  undefined,
 );
 
 type WishlistContextProviderType = {

@@ -47,8 +47,12 @@ export default function LoginForm() {
           duration: 2000,
         });
       }
-    } catch (_) {
-      toast.error('Faild to send request, you might be offline!', {
+    } catch (e) {
+      console.log(e);
+      if (e === '2FA_REQUIRED') {
+      } else {
+      }
+      toast.error('Failed to send request, you might be offline!', {
         position: 'bottom-right',
         duration: 2000,
       });

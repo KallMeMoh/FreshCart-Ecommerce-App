@@ -1,35 +1,39 @@
-import { NextAuthOptions } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import { jwtDecode } from "jwt-decode";
+import { NextAuthOptions } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import { jwtDecode } from 'jwt-decode';
 
 export const authOptions: NextAuthOptions = {
   pages: {
-    signIn: "/login",
+    signIn: '/login',
   },
 
   providers: [
     Credentials({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
         email: {},
         password: {},
+        code: {},
       },
 
       authorize: async (credentials) => {
         const res = await fetch(`${process.env.API_BASEURL}/auth/signin`, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             email: credentials?.email,
-            password: credentials?.password
+            password: credentials?.password,
           }),
         });
 
         const payload = await res.json();
+        if (!res.ok) throw new Error(payload.message || "can't login for now");
 
-        if (payload.message === "success") {
+        if (payload.require2FA) {
+          throw new Error('2FA_REQUIRED');
+        } else {
           const decodedToken: { id: string } = jwtDecode(payload.token);
 
           return {
@@ -37,8 +41,6 @@ export const authOptions: NextAuthOptions = {
             user: payload.user,
             token: payload.token,
           };
-        } else {
-          throw new Error(payload.message || "can't login for now");
         }
       },
     }),

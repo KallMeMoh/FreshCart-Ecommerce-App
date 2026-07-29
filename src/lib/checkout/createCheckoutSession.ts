@@ -1,39 +1,36 @@
-"use server";
-import getLoggedUserToken from "@/utilities/getLoggedUserToken";
-import { UnauthorizedError } from "@/errors/AuthErrors";
-import { AddressType } from "@/types/addressType";
-import { BadRequestError } from "@/errors/RequestErrors";
+'use server';
+import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
+import { UnauthorizedError } from '@/errors/AuthErrors';
+import { AddressType } from '@/types/addressType';
+import { BadRequestError } from '@/errors/RequestErrors';
 
-export default async function OnlineCheckout(
-  cartId: string,
-  address: AddressType
-) {
+export async function CardCheckout(cartId: string, address: AddressType) {
   try {
     const token = await getLoggedUserToken();
 
-    if (!token) throw new UnauthorizedError("You must login first!");
+    if (!token) throw new UnauthorizedError('You must login first!');
 
     const res = await fetch(
       `${process.env.API_BASEURL}/orders/checkout-session/${cartId}?url=${process.env.NEXT_URL}`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
           token,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ shippingAddress: address }),
-      }
+      },
     );
 
     if (!res.ok)
       throw new BadRequestError(
-        "A server error occurred while processing payment"
+        'A server error occurred while processing payment',
       );
 
     const payload = await res.json();
-    if (payload.statusMsg === "fail")
+    if (payload.statusMsg === 'fail')
       throw new UnauthorizedError(
-        payload.message.replace("Token", "credentials")
+        payload.message.replace('Token', 'credentials'),
       );
 
     return {
@@ -52,13 +49,13 @@ export default async function OnlineCheckout(
         },
       };
     } else {
-      console.error("Unexpected error in createCheckoutSession:", e);
+      console.error('Unexpected error in createCheckoutSession:', e);
       return {
         success: false,
         payload: null,
         error: {
-          message: "An unexpected error occurred. Please try again.",
-          type: "UnknownError",
+          message: 'An unexpected error occurred. Please try again.',
+          type: 'UnknownError',
         },
       };
     }

@@ -1,6 +1,6 @@
-"use client";
-import getLoggedUserCart from "@/utilities/Cart/getLoggedUserCart";
-import { createContext, useEffect, useState, ReactNode } from "react";
+'use client';
+import getLoggedUserCart from '@/lib/cart/getLoggedUserCart';
+import { createContext, useEffect, useState, ReactNode } from 'react';
 
 type CartContextType = {
   numberOfItems: number;
@@ -8,7 +8,7 @@ type CartContextType = {
 };
 
 export const CartContext = createContext<CartContextType | undefined>(
-  undefined
+  undefined,
 );
 
 type CartContextProviderProps = {
@@ -28,8 +28,8 @@ export default function CartContextProvider({
         return setNumberOfItems(
           payload.data.products.reduce(
             (acc: number, currVal: { count: number }) => acc + currVal.count,
-            0
-          )
+            0,
+          ),
         );
       }
       throw new Error(error?.message);

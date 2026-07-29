@@ -1,7 +1,7 @@
 'use client';
 import React, { useContext } from 'react';
 import { Button } from '../ui/button';
-import addToCart from '@/actions/addToCart.action';
+import addToCart from '@/lib/cart/addToCart.action';
 import { toast } from 'sonner';
 import { CartContext } from '@/context/CartContext';
 
@@ -28,7 +28,7 @@ export default function CartBtn({ productId }: { productId: string }) {
           return res.message;
         },
         error: (err) => err.message,
-      }
+      },
     );
   }
 

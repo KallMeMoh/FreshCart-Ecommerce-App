@@ -1,33 +1,33 @@
 'use server';
-import { UnauthorizedError } from '@/errors/AuthErrors';
-import getLoggedUserToken from '@/utilities/getLoggedUserToken';
-import { AddressSchemaType } from '@/schema/address.schema';
-import { BadRequestError } from '@/errors/RequestErrors';
 
-export default async function addNewAddress(values: AddressSchemaType) {
+import { UnauthorizedError } from '@/errors/AuthErrors';
+import { BadRequestError } from '@/errors/RequestErrors';
+import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
+
+export default async function updateCartItem(productId: string, count: number) {
   try {
     const token = await getLoggedUserToken();
 
     if (!token) throw new UnauthorizedError('You must login first!');
 
-    const res = await fetch(`${process.env.API_BASEURL}/addresses`, {
-      method: 'POST',
+    const res = await fetch(`${process.env.API_BASEURL}/cart/${productId}`, {
+      method: 'PUT',
       headers: {
         token,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ count }),
     });
 
     if (!res.ok)
       throw new BadRequestError(
-        'A server error occurred while adding new address data'
+        'A server error occurred while removing product form your cart.',
       );
 
     const payload = await res.json();
     if (payload.statusMsg === 'fail')
       throw new UnauthorizedError(
-        payload.message.replace('Token', 'credentials')
+        payload.message.replace('Token', 'credentials'),
       );
 
     return {
