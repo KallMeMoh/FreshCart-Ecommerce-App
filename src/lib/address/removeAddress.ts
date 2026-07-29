@@ -1,9 +1,9 @@
 'use server';
-import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
+import { getLoggedUserToken } from '@/lib/auth/getLoggedUserToken';
 import { UnauthorizedError } from '@/errors/AuthErrors';
 import { BadRequestError } from '@/errors/RequestErrors';
 
-export default async function removeAddress(addressId: string) {
+export async function removeAddress(addressId: string) {
   try {
     const token = await getLoggedUserToken();
 

@@ -20,8 +20,8 @@ import {
   emailSchema,
   EmailSchemaType,
 } from '@/schema/forgotPassword.schema';
-import sendVerificationCode from '@/lib/auth/sendVerificationCode';
-import verifyCode from '@/lib/auth/verifyCode';
+import { sendVerificationCode } from '@/lib/auth/sendVerificationCode';
+import { verifyCode } from '@/lib/auth/verifyCode';
 import { useRouter } from 'next/navigation';
 
 export default function ForgetPasswordForm() {

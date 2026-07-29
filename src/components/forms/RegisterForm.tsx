@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import { registerSchema, RegisterSchemaType } from '@/schema/register.schema';
-import signUp from '@/lib/auth/signUp';
+import { signUp } from '@/lib/auth/signUp';
 
 export default function RegisterForm() {
   const router = useRouter();

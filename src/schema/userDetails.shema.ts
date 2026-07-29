@@ -21,9 +21,9 @@ export const passwordSchema = zod
       .string()
       .nonempty("Password can't be left empty")
       .min(8, "Password can't be shorter than 8 characters"),
-    rePassword: zod.string().nonempty('Please Confirm Password'),
+    confirm_password: zod.string().nonempty('Please Confirm Password'),
   })
-  .refine((data) => data.password === data.rePassword, {
+  .refine((data) => data.password === data.confirm_password, {
     path: ['confirmPassword'],
     error: 'Confirm Password field must match Password field!',
   });

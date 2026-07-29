@@ -2,7 +2,7 @@
 import { BadRequestError } from '@/errors/RequestErrors';
 import { RegisterSchemaType } from '@/schema/register.schema';
 
-export default async function signUp(fields: RegisterSchemaType) {
+export async function signUp(fields: RegisterSchemaType) {
   try {
     const res = await fetch(`${process.env.API_BASEURL}/auth/signup`, {
       method: 'POST',

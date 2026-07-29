@@ -1,6 +1,6 @@
 'use client';
 import { ProductType } from '@/types/product.type';
-import getLoggedUserWishlist from '@/lib/wishlist/getLoggedUserWishlist';
+import { getLoggedUserWishlist } from '@/lib/wishlist/getLoggedUserWishlist';
 import { createContext, useEffect, useState, ReactNode } from 'react';
 
 export type WishlistContextType = {

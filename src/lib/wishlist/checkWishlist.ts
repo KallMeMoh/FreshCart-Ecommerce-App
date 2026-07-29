@@ -1,10 +1,8 @@
 'use server';
 import { ProductType } from '@/types/product.type';
-import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
+import { getLoggedUserToken } from '@/lib/auth/getLoggedUserToken';
 
-export default async function checkWishlist(
-  productId: string,
-): Promise<boolean> {
+export async function checkWishlist(productId: string): Promise<boolean> {
   const token = await getLoggedUserToken();
 
   if (!token) return false;

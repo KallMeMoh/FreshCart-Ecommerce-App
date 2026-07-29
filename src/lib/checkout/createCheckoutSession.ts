@@ -1,5 +1,5 @@
 'use server';
-import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
+import { getLoggedUserToken } from '@/lib/auth/getLoggedUserToken';
 import { UnauthorizedError } from '@/errors/AuthErrors';
 import { AddressType } from '@/types/addressType';
 import { BadRequestError } from '@/errors/RequestErrors';

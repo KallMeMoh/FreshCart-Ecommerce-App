@@ -14,15 +14,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { passwordSchema, PasswordSchemaType } from '@/schema/userDetails.shema';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import updateLoggedUserPassword from '@/utilities/updateLoggedUserPassword';
 import { signOut } from 'next-auth/react';
+import { updateLoggedUserPassword } from '@/lib/user/updateLoggedUserPassword';
 
 export default function UpdatePasswordForm() {
   const form = useForm({
     defaultValues: {
       currentPassword: '',
       password: '',
-      rePassword: '',
+      confirm_password: '',
     },
     resolver: zodResolver(passwordSchema),
   });
@@ -38,7 +38,7 @@ export default function UpdatePasswordForm() {
         loading: 'Updating your password...',
         success: 'Password updated successfully!',
         error: (error) => error.message,
-      }
+      },
     );
   }
 
@@ -75,7 +75,7 @@ export default function UpdatePasswordForm() {
           />
           <FormField
             control={form.control}
-            name="rePassword"
+            name="confirm_password"
             render={({ field }) => (
               <FormItem className="mb-4">
                 <FormLabel>Confirm New Password:</FormLabel>

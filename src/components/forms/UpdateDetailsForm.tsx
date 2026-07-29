@@ -9,13 +9,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { updateLoggedUserData } from '@/lib/user/updateLoggedUserData';
 import {
   EmailSchemaType,
   NameSchemaType,
   updateEmailSchema,
   updateNameSchema,
 } from '@/schema/userDetails.shema';
-import updateLoggedUserData from '@/utilities/updateLoggedUserData';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';

@@ -1,19 +1,19 @@
-"use server";
-import { decode } from "next-auth/jwt";
-import { cookies } from "next/headers";
+'use server';
+import { decode } from 'next-auth/jwt';
+import { cookies } from 'next/headers';
 
-export default async function getLoggedUserToken() {
+export async function getLoggedUserToken() {
   try {
-    const encriptedToken =
+    const encryptedToken =
       (await cookies()).get(`next-auth.session-token`)?.value ||
       (await cookies()).get(`__Secure-next-auth.session-token`)?.value;
 
-    if (!encriptedToken) {
+    if (!encryptedToken) {
       return null;
     }
 
     const token = await decode({
-      token: encriptedToken,
+      token: encryptedToken,
       secret: process.env.NEXTAUTH_SECRET!,
     });
 

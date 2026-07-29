@@ -1,9 +1,9 @@
 'use server';
-import getLoggedUserToken from '../lib/auth/getLoggedUserToken';
+import { getLoggedUserToken } from '../auth/getLoggedUserToken';
 import { UnauthorizedError } from '@/errors/AuthErrors';
 import { BadRequestError } from '@/errors/RequestErrors';
 
-export default async function updateLoggedUserData(values: {
+export async function updateLoggedUserData(values: {
   name?: string;
   email?: string;
 }) {

@@ -1,12 +1,12 @@
 'use server';
 import { BadRequestError } from '@/errors/RequestErrors';
-import getLoggedUserToken from '../lib/auth/getLoggedUserToken';
+import { getLoggedUserToken } from '../auth/getLoggedUserToken';
 import { UnauthorizedError } from '@/errors/AuthErrors';
 
-export default async function updateLoggedUserPassword(values: {
+export async function updateLoggedUserPassword(values: {
   currentPassword: string;
   password: string;
-  rePassword: string;
+  confirm_password: string;
 }) {
   try {
     const token = await getLoggedUserToken();

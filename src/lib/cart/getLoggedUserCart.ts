@@ -1,9 +1,9 @@
 'use server';
 import { UnauthorizedError } from '@/errors/AuthErrors';
 import { BadRequestError } from '@/errors/RequestErrors';
-import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
+import { getLoggedUserToken } from '@/lib/auth/getLoggedUserToken';
 
-export default async function getLoggedUserCart() {
+export async function getLoggedUserCart() {
   try {
     const token = await getLoggedUserToken();
 

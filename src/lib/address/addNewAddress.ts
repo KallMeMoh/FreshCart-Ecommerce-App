@@ -1,10 +1,10 @@
 'use server';
 import { UnauthorizedError } from '@/errors/AuthErrors';
-import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
+import { getLoggedUserToken } from '@/lib/auth/getLoggedUserToken';
 import { AddressSchemaType } from '@/schema/address.schema';
 import { BadRequestError } from '@/errors/RequestErrors';
 
-export default async function addNewAddress(values: AddressSchemaType) {
+export async function addNewAddress(values: AddressSchemaType) {
   try {
     const token = await getLoggedUserToken();
 

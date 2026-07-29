@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { addressSchema, AddressSchemaType } from '@/schema/address.schema';
 import { AddressType } from '@/types/addressType';
-import addNewAddress from '@/lib/address/addNewAddress';
+import { addNewAddress } from '@/lib/address/addNewAddress';
 
 export default function AddressForm({
   setAddresses,

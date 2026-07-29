@@ -6,7 +6,7 @@ import image from '../../../public/error.svg';
 import { ProductType } from '@/types/product.type';
 import { MetadataType } from '@/types/metadata.type';
 import { ResponseDataType } from '@/types/responseData.type';
-import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
+import { getLoggedUserToken } from '@/lib/auth/getLoggedUserToken';
 
 export default async function Products({
   pagination = false,

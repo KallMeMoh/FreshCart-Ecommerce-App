@@ -1,6 +1,6 @@
 'use client';
-import removeCartItem from '@/lib/cart/removeCartItem';
-import updateCartItem from '@/lib/cart/updateCartItem';
+import { removeCartItem } from '@/lib/cart/removeCartItem';
+import { updateCartItem } from '@/lib/cart/updateCartItem';
 import { CartItemType } from '@/types/cartItem.type';
 import Image from 'next/image';
 import Link from 'next/link';

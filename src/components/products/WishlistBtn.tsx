@@ -1,8 +1,8 @@
 'use client';
-import addToWishlist from '@/lib/wishlist/addToWishlist';
-import removeFromWishlist from '@/lib/wishlist/removeFromWishlist';
+import { addToWishlist } from '@/lib/wishlist/addToWishlist';
+import { removeFromWishlist } from '@/lib/wishlist/removeFromWishlist';
 import { WishlistContext } from '@/context/WishlistContext';
-import getLoggedUserWishlist from '@/lib/wishlist/getLoggedUserWishlist';
+import { getLoggedUserWishlist } from '@/lib/wishlist/getLoggedUserWishlist';
 import React, { useContext, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 

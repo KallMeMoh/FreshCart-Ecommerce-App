@@ -1,5 +1,5 @@
 'use client';
-import getLoggedUserCart from '@/lib/cart/getLoggedUserCart';
+import { getLoggedUserCart } from '@/lib/cart/getLoggedUserCart';
 import { createContext, useEffect, useState, ReactNode } from 'react';
 
 type CartContextType = {

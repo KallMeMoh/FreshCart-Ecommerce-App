@@ -2,9 +2,9 @@
 
 import { UnauthorizedError } from '@/errors/AuthErrors';
 import { BadRequestError } from '@/errors/RequestErrors';
-import getLoggedUserToken from '@/lib/auth/getLoggedUserToken';
+import { getLoggedUserToken } from '@/lib/auth/getLoggedUserToken';
 
-export default async function updateCartItem(productId: string, count: number) {
+export async function updateCartItem(productId: string, count: number) {
   try {
     const token = await getLoggedUserToken();
 

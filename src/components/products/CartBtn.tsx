@@ -1,7 +1,7 @@
 'use client';
 import React, { useContext } from 'react';
 import { Button } from '../ui/button';
-import addToCart from '@/lib/cart/addToCart.action';
+import { addToCart } from '@/lib/cart/addToCart.action';
 import { toast } from 'sonner';
 import { CartContext } from '@/context/CartContext';
 
