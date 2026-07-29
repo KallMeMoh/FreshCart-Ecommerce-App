@@ -11,7 +11,7 @@ export async function CardCheckout(cartId: string, address: AddressType) {
     if (!token) throw new UnauthorizedError('You must login first!');
 
     const res = await fetch(
-      `${process.env.API_BASEURL}/orders/checkout-session/${cartId}?url=${process.env.NEXT_URL}`,
+      `${process.env.API_BASEURL}/orders/checkout-session/${cartId}?url=${process.env.NEXT_PUBLIC_BASE_URL}`,
       {
         method: 'POST',
         headers: {
