@@ -14,8 +14,8 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { CartContext } from '@/context/CartContext';
-import getLoggedUserAddresses from '@/lib/address/getLoggedUserAddresses';
-import getLoggedUserCart from '@/lib/cart/getLoggedUserCart';
+import { getLoggedUserAddresses } from '@/lib/address/getLoggedUserAddresses';
+import { getLoggedUserCart } from '@/lib/cart/getLoggedUserCart';
 import { CashCheckout } from '@/lib/checkout/createCashOrder';
 import { CardCheckout } from '@/lib/checkout/createCheckoutSession';
 import { cn } from '@/lib/utils';

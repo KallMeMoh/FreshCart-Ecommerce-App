@@ -1,7 +1,7 @@
 'use client';
 import CartItem from '@/components/cart/CartItem';
 import React, { useContext, useEffect, useState } from 'react';
-import getLoggedUserCart from '@/lib/cart/getLoggedUserCart';
+import { getLoggedUserCart } from '@/lib/cart/getLoggedUserCart';
 import CartCheckoutBtn from '@/components/cart/CartCheckoutBtn';
 import { CartItemType } from '@/types/cartItem.type';
 import Link from 'next/link';

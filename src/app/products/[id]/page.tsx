@@ -1,6 +1,6 @@
-import checkWishlist from '@/lib/wishlist/checkWishlist';
-import getProductDetails from '@/lib/product/getProductDetails';
-import getRelatedProducts from '@/lib/product/getRelatedProducts';
+import { checkWishlist } from '@/lib/wishlist/checkWishlist';
+import { getProductDetails } from '@/lib/product/getProductDetails';
+import { getRelatedProducts } from '@/lib/product/getRelatedProducts';
 import CartBtn from '@/components/products/CartBtn';
 import Product from '@/components/products/Product';
 import WishlistBtn from '@/components/products/WishlistBtn';

@@ -1,8 +1,8 @@
 'use client';
 import AddressForm from '@/components/forms/AddressForm';
 import { AddressType } from '@/types/addressType';
-import getLoggedUserAddresses from '@/lib/address/getLoggedUserAddresses';
-import removeAddress from '@/lib/address/removeAddress';
+import { getLoggedUserAddresses } from '@/lib/address/getLoggedUserAddresses';
+import { removeAddress } from '@/lib/address/removeAddress';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 

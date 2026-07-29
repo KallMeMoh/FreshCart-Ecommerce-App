@@ -1,27 +1,27 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import "../../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
-import Navbar from "@/components/Navbar";
-import { Toaster } from "@/components/ui/sonner";
-import AuthSessionProvider from "@/components/next_auth/SessionProvider";
-import CartContextProvider from "@/context/CartContext";
-import Footer from "@/components/Footer";
-import WishlistContextProvider from "@/context/WishlistContext";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+import Navbar from '@/components/Navbar';
+import { Toaster } from '@/components/ui/sonner';
+import AuthSessionProvider from '@/components/next_auth/SessionProvider';
+import CartContextProvider from '@/context/CartContext';
+import Footer from '@/components/Footer';
+import WishlistContextProvider from '@/context/WishlistContext';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Freshcart",
-  description: "Why go shoping? We bring the store to you.",
+  title: 'Freshcart',
+  description: 'Why go shoping? We bring the store to you.',
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -38,7 +38,7 @@ export default function RootLayout({
           <CartContextProvider>
             <WishlistContextProvider>
               <Navbar />
-              <div className='pt-[76px]'>{children}</div>
+              <div className="pt-[76px]">{children}</div>
               <Toaster />
               <Footer />
             </WishlistContextProvider>
