@@ -1,18 +1,14 @@
 'use client';
+import { useWishlist } from '@/context/WishlistContext';
 import { addToWishlist } from '@/lib/wishlist/addToWishlist';
-import { removeFromWishlist } from '@/lib/wishlist/removeFromWishlist';
-import { WishlistContext } from '@/context/WishlistContext';
 import { getLoggedUserWishlist } from '@/lib/wishlist/getLoggedUserWishlist';
-import React, { useContext, useMemo, useState } from 'react';
+import { removeFromWishlist } from '@/lib/wishlist/removeFromWishlist';
+import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 export default function WishlistBtn({ productId }: { productId: string }) {
-  const context = useContext(WishlistContext);
+  const { wishlist, setWishlist } = useWishlist();
 
-  if (!context)
-    throw new Error('A server error occured while loading wishlist!');
-
-  const { wishlist, setWishlist } = context;
   const wishlisted = useMemo(() => {
     if (typeof wishlist === 'number') return false;
     return wishlist.find((prod) => productId === prod._id) !== undefined;
@@ -25,11 +21,11 @@ export default function WishlistBtn({ productId }: { productId: string }) {
 
     toast.promise(
       async () => {
-        const updateWhislistRes = wishlisted
+        const updateWishlistRes = wishlisted
           ? await removeFromWishlist(productId)
           : await addToWishlist(productId);
 
-        if (updateWhislistRes.success) {
+        if (updateWishlistRes.success) {
           const { success, payload, error } = await getLoggedUserWishlist();
 
           if (success) {
@@ -41,12 +37,12 @@ export default function WishlistBtn({ productId }: { productId: string }) {
           throw new Error(error?.message);
         }
 
-        throw new Error(updateWhislistRes.error?.message);
+        throw new Error(updateWishlistRes.error?.message);
       },
       {
         position: 'bottom-right',
         loading: 'Updating your wishlist...',
-        success: 'Successfuly updated your wishlist.',
+        success: 'Successfully updated your wishlist.',
         error: (err) => {
           setDisabled(false);
           return err.message;

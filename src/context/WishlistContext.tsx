@@ -1,7 +1,13 @@
 'use client';
 import { ProductType } from '@/types/product.type';
 import { getLoggedUserWishlist } from '@/lib/wishlist/getLoggedUserWishlist';
-import { createContext, useEffect, useState, ReactNode } from 'react';
+import {
+  createContext,
+  useEffect,
+  useState,
+  ReactNode,
+  useContext,
+} from 'react';
 
 export type WishlistContextType = {
   wishlist: ProductType[] | number;
@@ -46,4 +52,12 @@ export default function WishlistContextProvider({
       {children}
     </WishlistContext.Provider>
   );
+}
+
+export function useWishlist() {
+  const context = useContext(WishlistContext);
+  if (context === undefined)
+    throw new Error('useWishlist must be within a WishlistContextProvider');
+
+  return context;
 }

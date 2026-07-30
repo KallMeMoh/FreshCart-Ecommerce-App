@@ -13,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { CartContext } from '@/context/CartContext';
+import { useCart } from '@/context/CartContext';
 import { getLoggedUserAddresses } from '@/lib/address/getLoggedUserAddresses';
 import { getLoggedUserCart } from '@/lib/cart/getLoggedUserCart';
 import { CashCheckout } from '@/lib/checkout/createCashOrder';
@@ -22,13 +22,11 @@ import { cn } from '@/lib/utils';
 import { AddressType } from '@/types/addressType';
 import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 export default function CheckoutPage() {
-  const context = useContext(CartContext);
-  if (!context) throw new Error('Cart Context does not exist');
-  const { setNumberOfItems } = context;
+  const { setNumberOfItems } = useCart();
   const [loading, setLoading] = useState(true);
   const [cartId, setCartId] = useState();
   const [addresses, setAddresses] = useState<AddressType[]>([]);

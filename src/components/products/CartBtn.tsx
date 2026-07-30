@@ -1,16 +1,12 @@
 'use client';
-import React, { useContext } from 'react';
-import { Button } from '../ui/button';
+import { useCart } from '@/context/CartContext';
 import { addToCart } from '@/lib/cart/addToCart.action';
 import { toast } from 'sonner';
-import { CartContext } from '@/context/CartContext';
+import { Button } from '../ui/button';
 
 export default function CartBtn({ productId }: { productId: string }) {
-  const context = useContext(CartContext);
+  const { setNumberOfItems } = useCart();
 
-  if (!context) throw new Error('Not exist');
-
-  const { setNumberOfItems } = context;
   async function handleClick() {
     toast.promise(
       async () => {

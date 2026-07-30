@@ -6,7 +6,7 @@ import { removeAddress } from '@/lib/address/removeAddress';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-export default function AddressManagmentPage() {
+export default function AddressManagementPage() {
   const [loading, setLoading] = useState(true);
   const [addresses, setAddresses] = useState<AddressType[]>([]);
 

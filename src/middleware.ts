@@ -1,27 +1,27 @@
-import { getToken } from "next-auth/jwt";
-import { NextRequest, NextResponse } from "next/server";
+import { getToken } from 'next-auth/jwt';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
 
   if (token) {
     if (
-      request.nextUrl.pathname === "/login" ||
-      request.nextUrl.pathname === "/register"
+      request.nextUrl.pathname === '/login' ||
+      request.nextUrl.pathname === '/register'
     ) {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL('/', request.url));
     }
 
     return NextResponse.next();
   } else {
     if (
-      request.nextUrl.pathname === "/wishlist" ||
-      request.nextUrl.pathname === "/cart" ||
-      request.nextUrl.pathname === "/user" ||
-      request.nextUrl.pathname === "/address" ||
-      request.nextUrl.pathname === "/checkout"
+      request.nextUrl.pathname === '/wishlist' ||
+      request.nextUrl.pathname === '/cart' ||
+      request.nextUrl.pathname === '/user' ||
+      request.nextUrl.pathname === '/address' ||
+      request.nextUrl.pathname === '/checkout'
     ) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL('/login', request.url));
     }
 
     return NextResponse.next();
@@ -30,12 +30,12 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/wishlist",
-    "/cart",
-    "/login",
-    "/register",
-    "/user",
-    "/checkout",
-    "/address",
+    '/wishlist',
+    '/cart',
+    '/login',
+    '/register',
+    '/user',
+    '/checkout',
+    '/address',
   ],
 };

@@ -11,7 +11,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { passwordSchema, PasswordSchemaType } from '@/schema/userDetails.shema';
+import {
+  passwordSchema,
+  PasswordSchemaType,
+} from '@/schema/userDetails.schema';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { signOut } from 'next-auth/react';

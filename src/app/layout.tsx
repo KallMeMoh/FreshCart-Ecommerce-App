@@ -4,7 +4,7 @@ import './globals.css';
 import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import Navbar from '@/components/Navbar';
 import { Toaster } from '@/components/ui/sonner';
-import AuthSessionProvider from '@/components/next_auth/SessionProvider';
+import AuthSessionProvider from '@/components/next-auth/SessionProvider';
 import CartContextProvider from '@/context/CartContext';
 import Footer from '@/components/Footer';
 import WishlistContextProvider from '@/context/WishlistContext';
@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Freshcart',
-  description: 'Why go shoping? We bring the store to you.',
+  description: 'Why go shopping? We bring the store to you.',
 };
 
 export default function RootLayout({

@@ -1,11 +1,4 @@
 'use client';
-import { usePathname } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useContext, useState } from 'react';
-import logo from '../../public/freshcart-logo.svg';
-import { signOut, useSession } from 'next-auth/react';
-import { CartContext } from '@/context/CartContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,18 +7,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useRouter } from 'next/navigation';
+import { useCart } from '@/context/CartContext';
+import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import logo from '../../public/freshcart-logo.svg';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Button } from './ui/button';
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [menuToggle, setMenuToggle] = useState(false);
   const { data: session } = useSession();
-  const context = useContext(CartContext);
 
-  if (!context) throw new Error('Not exist');
-
-  const { numberOfItems } = context;
+  const { numberOfItems } = useCart();
 
   return (
     <nav className="bg-white shadow-sm shadow-gray-300 fixed z-50 w-full">
@@ -147,8 +145,12 @@ export default function Navbar() {
                 <li>
                   <DropdownMenu>
                     <DropdownMenuTrigger className="hover:text-emerald-600 cursor-pointer">
-                      Profile
+                      <Avatar>
+                        <AvatarImage src="#" alt="avatar" />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
                     </DropdownMenuTrigger>
+
                     <DropdownMenuContent>
                       <DropdownMenuLabel>My Account</DropdownMenuLabel>
                       <DropdownMenuSeparator />
@@ -311,7 +313,10 @@ export default function Navbar() {
                   <li onClick={() => setMenuToggle(false)}>
                     <DropdownMenu>
                       <DropdownMenuTrigger className="hover:text-emerald-600 cursor-pointer">
-                        Profile
+                        <Avatar>
+                          <AvatarImage src="#" alt="avatar" />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>

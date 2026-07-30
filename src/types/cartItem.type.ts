@@ -1,7 +1,7 @@
 import { ProductType } from './product.type';
 
 export interface CartItemType {
-  _id: number;
+  _id: string;
   count: number;
   product: ProductType;
   price: number;

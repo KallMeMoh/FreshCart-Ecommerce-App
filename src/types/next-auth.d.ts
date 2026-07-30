@@ -1,8 +1,8 @@
 /* eslint-disable */
-import NextAuth, { User } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import NextAuth, { User } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface User {
     user: {
       name: string;
@@ -13,11 +13,11 @@ declare module "next-auth" {
   }
 
   interface Session {
-    user: User["user"];
+    user: User['user'];
   }
 }
 
-declare module "next-auth/jwt" {
+declare module 'next-auth/jwt' {
   interface JWT extends User {
     idToken?: string;
   }

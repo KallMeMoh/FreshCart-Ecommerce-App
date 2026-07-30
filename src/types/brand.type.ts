@@ -1,8 +1,8 @@
 export interface BrandType {
-  _id: string
-  name: string
-  slug: string
-  image: string
-  createdAt?: string
-  updatedAt?: string
+  _id: string;
+  name: string;
+  slug: string;
+  image: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

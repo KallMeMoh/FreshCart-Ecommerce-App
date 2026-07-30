@@ -1,5 +1,5 @@
-import React from "react";
-import Products from "@/components/products/Products";
+import React from 'react';
+import Products from '@/components/products/Products';
 
 export default async function BrandProducts({
   params,
@@ -9,8 +9,8 @@ export default async function BrandProducts({
   const { id } = await params;
 
   return (
-    <div className='flex flex-col justify-between items-center py-2 min-h-[90vh]'>
-      <Products pagination={true} params={{ type: "brand", value: id }} />
+    <div className="flex flex-col justify-between items-center py-2 min-h-[90vh]">
+      <Products pagination={true} params={{ type: 'brand', value: id }} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import * as zod from "zod";
+import * as zod from 'zod';
 
 export const emailSchema = zod.object({
   email: zod.email().nonempty("Email can't be left empty"),
