@@ -5,15 +5,11 @@ import { getLoggedUserCart } from '@/lib/cart/getLoggedUserCart';
 import CartCheckoutBtn from '@/components/cart/CartCheckoutBtn';
 import { CartItemType } from '@/types/cartItem.type';
 import Link from 'next/link';
-import { CartContext } from '@/context/CartContext';
+import { useCart } from '@/context/CartContext';
 import { toast } from 'sonner';
 
 export default function Cart() {
-  const context = useContext(CartContext);
-
-  if (!context) throw new Error('A server error occured while loading cart!');
-
-  const { numberOfItems, setNumberOfItems } = context;
+  const { numberOfItems, setNumberOfItems } = useCart();
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState<{
     _id: string;

@@ -56,7 +56,7 @@ export default function Navbar() {
                     >
                       Cart
                       {numberOfItems! > 0 ? (
-                        <span className="absolute top-[-10px] right-[-10px] bg-black text-white size-5 rounded-full text-center text-sm">
+                        <span className="absolute -top-2.5 -right-2.5 bg-black text-white size-5 rounded-full text-center text-sm">
                           {numberOfItems}
                         </span>
                       ) : (
@@ -194,7 +194,7 @@ export default function Navbar() {
           >
             <i className="fas fa-bars text-2xl font-bold text-gray-600 cursor-pointer"></i>
             {numberOfItems! > 0 ? (
-              <span className="absolute top-[-5px] right-[-5px] bg-black text-white size-5 rounded-full text-center text-sm">
+              <span className="absolute -top-1.25 -right-1.25 bg-black text-white size-5 rounded-full text-center text-sm">
                 {numberOfItems}
               </span>
             ) : (

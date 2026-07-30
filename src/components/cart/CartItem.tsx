@@ -62,14 +62,14 @@ export default function CartItem({
         <Image
           src={cartItem.product.imageCover}
           alt="Product Image"
-          className="object-contain h-[200px] md:h-[150px] lg:h-[200px]"
+          className="object-contain h-50 md:h-37.5 lg:h-50"
           width={200}
           height={200}
         />
       </div>
       <div className="w-full md:w-6/12 flex items-center justify-center p-2">
         <div>
-          <h1 className="mt-4 mb-2 font-bold text-3xl">
+          <h1 className="mt-4 mb-2 font-bold text-3xl line-clamp-2">
             <Link href={`/products/${product._id}`}>{product.title}</Link>
           </h1>
           <p className="text-gray-600">
@@ -105,7 +105,7 @@ export default function CartItem({
           disabled={actionsDisabled}
         >
           {actionsDisabled ? (
-            <i className="fas fa-spinner rotate-[360deg] animate-spin"></i>
+            <i className="fas fa-spinner rotate-360 animate-spin"></i>
           ) : (
             <i className="fas fa-minus"></i>
           )}
@@ -119,7 +119,7 @@ export default function CartItem({
           disabled={actionsDisabled}
         >
           {actionsDisabled ? (
-            <i className="fas fa-spinner rotate-[360deg] animate-spin"></i>
+            <i className="fas fa-spinner rotate-360 animate-spin"></i>
           ) : (
             <i className="fas fa-plus"></i>
           )}
@@ -131,7 +131,7 @@ export default function CartItem({
         disabled={actionsDisabled}
       >
         {actionsDisabled ? (
-          <i className="fas fa-spinner rotate-[360deg] animate-spin"></i>
+          <i className="fas fa-spinner rotate-360 animate-spin"></i>
         ) : (
           <i className="fas fa-trash"></i>
         )}
