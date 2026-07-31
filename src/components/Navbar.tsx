@@ -15,14 +15,12 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import logo from '../../public/freshcart-logo.svg';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { Button } from './ui/button';
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [menuToggle, setMenuToggle] = useState(false);
   const { data: session } = useSession();
-
   const { numberOfItems } = useCart();
 
   return (
@@ -147,12 +145,16 @@ export default function Navbar() {
                     <DropdownMenuTrigger className="hover:text-emerald-600 cursor-pointer">
                       <Avatar>
                         <AvatarImage src="#" alt="avatar" />
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarFallback>
+                          {session.user.name.slice(0, 2).toUpperCase()}
+                        </AvatarFallback>
                       </Avatar>
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent>
-                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                      <DropdownMenuLabel>
+                        {session.user.email}
+                      </DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         className="cursor-pointer"
@@ -315,11 +317,15 @@ export default function Navbar() {
                       <DropdownMenuTrigger className="hover:text-emerald-600 cursor-pointer">
                         <Avatar>
                           <AvatarImage src="#" alt="avatar" />
-                          <AvatarFallback>CN</AvatarFallback>
+                          <AvatarFallback>
+                            {session.user.name.slice(0, 2).toUpperCase()}
+                          </AvatarFallback>
                         </Avatar>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuLabel>
+                          {session.user.email}
+                        </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                           className="cursor-pointer"
