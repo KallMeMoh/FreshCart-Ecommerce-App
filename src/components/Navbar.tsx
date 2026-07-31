@@ -1,23 +1,14 @@
 'use client';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { useCart } from '@/context/CartContext';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import logo from '../../public/freshcart-logo.svg';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import AvatarDropdown from './AvatarDropdown';
 
 export default function Navbar() {
-  const router = useRouter();
   const pathname = usePathname();
   const [menuToggle, setMenuToggle] = useState(false);
   const { data: session } = useSession();
@@ -141,48 +132,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <li>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="hover:text-emerald-600 cursor-pointer">
-                      <Avatar>
-                        <AvatarImage src="#" alt="avatar" />
-                        <AvatarFallback>
-                          {session.user.name.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                    </DropdownMenuTrigger>
-
-                    <DropdownMenuContent>
-                      <DropdownMenuLabel>
-                        {session.user.email}
-                      </DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        className="cursor-pointer"
-                        onClick={() => router.replace('/user')}
-                      >
-                        Profile
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="cursor-pointer"
-                        onClick={() => router.replace('/address')}
-                      >
-                        Addresses
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="cursor-pointer"
-                        onClick={() => router.replace('/wishlist')}
-                      >
-                        Wishlist
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        className="cursor-pointer"
-                        onClick={() => signOut({ callbackUrl: '/' })}
-                      >
-                        Logout
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <AvatarDropdown />
                 </li>
               )}
             </ul>
@@ -313,47 +263,7 @@ export default function Navbar() {
                   </>
                 ) : (
                   <li onClick={() => setMenuToggle(false)}>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger className="hover:text-emerald-600 cursor-pointer">
-                        <Avatar>
-                          <AvatarImage src="#" alt="avatar" />
-                          <AvatarFallback>
-                            {session.user.name.slice(0, 2).toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuLabel>
-                          {session.user.email}
-                        </DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => router.replace('/user')}
-                        >
-                          Profile
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => router.replace('/address')}
-                        >
-                          Addresses
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => router.replace('/wishlist')}
-                        >
-                          Wishlist
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => signOut({ callbackUrl: '/' })}
-                        >
-                          Logout
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <AvatarDropdown />
                   </li>
                 )}
               </ul>
