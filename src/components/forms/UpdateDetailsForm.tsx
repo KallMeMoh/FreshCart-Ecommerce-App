@@ -20,16 +20,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-export default function UpdateDetailsForm() {
-  const name = useForm({
+export default function UpdateDetailsForm({
+  name,
+  email,
+}: {
+  name: string;
+  email: string;
+}) {
+  const nameForm = useForm({
     defaultValues: {
-      name: '',
+      name,
     },
     resolver: zodResolver(updateNameSchema),
   });
-  const email = useForm({
+  const emailForm = useForm({
     defaultValues: {
-      email: '',
+      email,
     },
     resolver: zodResolver(updateEmailSchema),
   });
@@ -54,10 +60,10 @@ export default function UpdateDetailsForm() {
   return (
     <div className="rounded-lg shadow-lg shadow-gray-200 py-4 px-8 w-full lg:w-1/2">
       <h1 className="font-bold text-center text-3xl mb-8">Update Details</h1>
-      <Form {...name}>
-        <form onSubmit={name.handleSubmit(handleClick)}>
+      <Form {...nameForm}>
+        <form onSubmit={nameForm.handleSubmit(handleClick)}>
           <FormField
-            control={name.control}
+            control={nameForm.control}
             name="name"
             render={({ field }) => (
               <FormItem className="mb-4">
@@ -76,10 +82,10 @@ export default function UpdateDetailsForm() {
           />
         </form>
       </Form>
-      <Form {...email}>
-        <form onSubmit={email.handleSubmit(handleClick)}>
+      <Form {...emailForm}>
+        <form onSubmit={emailForm.handleSubmit(handleClick)}>
           <FormField
-            control={email.control}
+            control={emailForm.control}
             name="email"
             render={({ field }) => (
               <FormItem className="mb-4">
