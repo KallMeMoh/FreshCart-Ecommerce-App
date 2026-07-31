@@ -67,7 +67,7 @@ export default function CartSummary({
           </span>
         </div>
       </CardHeader>
-      <CardContent className="px-0 flex flex-col gap-2">
+      <CardContent className="px-0 flex flex-col gap-2 items-center">
         <div className="flex h-5 items-center gap-2 text-sm text-gray-500">
           <div>
             <i className="fa-solid fa-table-cells-row-lock text-cyan-600"></i>{' '}
@@ -84,10 +84,11 @@ export default function CartSummary({
             Returns
           </div>
         </div>
-        <Link href={`/checkout`}>
-          <button className="cursor-pointer bg-emerald-600 p-4 w-full text-2xl rounded-md text-white hover:bg-emerald-600">
-            Proceed to Checkout
-          </button>
+        <Link
+          href={`/checkout`}
+          className="w-full cursor-pointer bg-emerald-600 p-4 text-center text-2xl rounded-md text-white hover:bg-emerald-600"
+        >
+          Proceed to Checkout
         </Link>
       </CardContent>
     </Card>
