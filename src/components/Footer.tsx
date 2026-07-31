@@ -27,7 +27,7 @@ export default function Footer() {
           <div className="w-full lg:w-1/4">
             <button
               onClick={handleEmail}
-              className="block bg-green-600 text-white text-lg w-2/4 md:w-1/4 lg:w-full mx-auto p-1 rounded-md"
+              className="block bg-emerald-600 text-white text-lg w-2/4 md:w-1/4 lg:w-full mx-auto p-1 rounded-md"
             >
               Share App Link
             </button>

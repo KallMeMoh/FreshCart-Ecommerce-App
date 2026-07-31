@@ -21,11 +21,11 @@ export default async function Category({
   let subCategories: SubcategoryType[] = [];
   try {
     const subCategoriesRes = await fetch(
-      `${process.env.API_BASEURL}/categories/${category._id}/subcategories`
+      `${process.env.API_BASEURL}/categories/${category._id}/subcategories`,
     );
 
     if (!subCategoriesRes.ok)
-      throw new Error('Faild to load category information!');
+      throw new Error('Failed to load category information!');
 
     const payload: ResponseDataType<SubcategoryType> =
       await subCategoriesRes.json();
