@@ -1,9 +1,9 @@
 'use client';
 import AddressForm from '@/components/forms/AddressForm';
-import { AddressType } from '@/types/addressType';
 import { getLoggedUserAddresses } from '@/lib/address/getLoggedUserAddresses';
 import { removeAddress } from '@/lib/address/removeAddress';
-import React, { useEffect, useState } from 'react';
+import { AddressType } from '@/types/addressType';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 export default function AddressManagementPage() {
@@ -63,7 +63,7 @@ export default function AddressManagementPage() {
   return (
     <div className="w-full lg:w-[70%] mx-auto flex items-center py-8 min-h-[90vh]">
       <div className="w-full flex flex-wrap mx-4 rounded-md overflow-hidden shadow-gray-300 shadow-lg justify-items-stretch">
-        <div className="bg-gray-100 w-full lg:w-1/2 lg:order-2 lg:h-full overflow-y-scroll flex flex-col items-center lg:min-h-[600px] gap-2 p-4">
+        <div className="bg-gray-100 w-full lg:w-1/2 lg:order-2 lg:h-full overflow-y-scroll flex flex-col items-center lg:min-h-150 gap-2 p-4">
           {addresses.length > 0 ? (
             addresses.map((address: AddressType) => (
               <div

@@ -16,22 +16,26 @@ import { toast } from 'sonner';
 import { addressSchema, AddressSchemaType } from '@/schema/address.schema';
 import { AddressType } from '@/types/addressType';
 import { addNewAddress } from '@/lib/address/addNewAddress';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 export default function AddressForm({
   setAddresses,
 }: {
   setAddresses: React.Dispatch<React.SetStateAction<AddressType[]>>;
 }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const form = useForm({
     defaultValues: {
       name: '',
       details: '',
       city: '',
+      phone: '',
     },
     resolver: zodResolver(addressSchema),
   });
 
-  async function handleAddress(values: AddressSchemaType) {
+  function handleAddress(values: AddressSchemaType) {
     toast.promise(
       async () => {
         const {
@@ -42,6 +46,9 @@ export default function AddressForm({
 
         if (success && newAddresses) {
           setAddresses(newAddresses);
+          if (searchParams.get('next') !== null) {
+            router.replace(searchParams.get('next')!);
+          }
           return true;
         }
 

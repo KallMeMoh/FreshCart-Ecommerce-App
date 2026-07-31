@@ -105,7 +105,7 @@ export default function CheckoutPage() {
       const addressRes = await getLoggedUserAddresses();
 
       if (!addressRes.success || !addressRes.payload.results)
-        return router.replace('/address');
+        return router.replace('/address?next=/checkout');
 
       setAddresses(addressRes.payload.data);
       setValue(`${addressRes.payload.data[0]?._id}`);
@@ -148,7 +148,7 @@ export default function CheckoutPage() {
                   <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[200px] p-0">
+              <PopoverContent className="w-50 p-0">
                 <Command>
                   <CommandInput placeholder="Search framework..." />
                   <CommandList>
@@ -185,7 +185,7 @@ export default function CheckoutPage() {
           <div className="flex items-center justify-around">
             <button
               onClick={() => setMethod('cash')}
-              className="size-[100px] md:size-[150px] lg:size-[250px] xl:size-[400px] shadow-gray-300 shadow-lg rounded-2xl flex flex-col items-center justify-center gap-3 lg:gap-6 disabled:bg-gray-100 cursor-pointer"
+              className="size-25 md:size-37.5 lg:size-62.5 xl:size-100 shadow-gray-300 shadow-lg rounded-2xl flex flex-col items-center justify-center gap-3 lg:gap-6 disabled:bg-gray-100 cursor-pointer"
               disabled={method === 'cash'}
             >
               <i className="text-4xl lg:text-9xl fas fa-money-bills"></i>
@@ -193,7 +193,7 @@ export default function CheckoutPage() {
             </button>
             <button
               onClick={() => setMethod('card')}
-              className="size-[100px] md:size-[150px] lg:size-[250px] xl:size-[400px] shadow-gray-300 shadow-lg rounded-2xl flex flex-col items-center justify-center gap-3 lg:gap-6 disabled:bg-gray-100 cursor-pointer"
+              className="size-25 md:size-37.5 lg:size-62.5 xl:size-100 shadow-gray-300 shadow-lg rounded-2xl flex flex-col items-center justify-center gap-3 lg:gap-6 disabled:bg-gray-100 cursor-pointer"
               disabled={method === 'card'}
             >
               <i className="text-4xl lg:text-9xl fas fa-credit-card"></i>
